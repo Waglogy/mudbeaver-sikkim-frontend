@@ -16,11 +16,12 @@
         "razorpay": "^0.0.0"
     },
     "devDependencies": {
-        "nodemon": "^3.1.0"
+        "nodemon": "^3.1.11"
     },
     "scripts": {
         "dev": "nodemon index",
         "start": "node index"
+        
     },
     "engines": {
         "node": ">=14.20.1"

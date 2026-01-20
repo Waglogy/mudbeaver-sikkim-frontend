@@ -23,7 +23,6 @@ app.set("view engine", "ejs")
 app.use(express.static("public"))
 
 // Using Routes Middleware
-
 app.use(require("./Routes/route"))
 
 // Mongo Database Connection
