@@ -35,21 +35,21 @@ export default function ContactPage() {
                 We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
               </p>
               <div className="space-y-4 sm:space-y-6">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-lg flex items-center justify-center shadow-md mr-4">
+                <div className="flex items-start group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-300">
+                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-lg flex items-center justify-center shadow-md mr-4 group-hover:scale-110 transition-transform duration-300">
                     <i className="fa fa-map-marker-alt text-base sm:text-lg"></i>
                   </div>
                   <div>
-                    <h5 className="font-heading font-bold text-gray-900 mb-1 text-lg sm:text-xl">Address</h5>
+                    <h5 className="font-heading font-bold text-gray-900 mb-1 text-lg sm:text-xl group-hover:text-[#964B00] transition-colors duration-300">Address</h5>
                     <p className="text-base sm:text-lg text-gray-700 mb-0">Jorthang Namchi Road, Sikkim, India 737121</p>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-lg flex items-center justify-center shadow-md mr-4">
+                <div className="flex items-start group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-300">
+                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-lg flex items-center justify-center shadow-md mr-4 group-hover:scale-110 transition-transform duration-300">
                     <i className="fa fa-phone-alt text-base sm:text-lg"></i>
                   </div>
                   <div>
-                    <h5 className="font-heading font-bold text-gray-900 mb-1 text-lg sm:text-xl">Phone</h5>
+                    <h5 className="font-heading font-bold text-gray-900 mb-1 text-lg sm:text-xl group-hover:text-[#964B00] transition-colors duration-300">Phone</h5>
                     <p className="text-base sm:text-lg text-gray-700 mb-0">
                       <a href="tel:+918927273545" className="text-[#964B00] hover:text-[#7a3d00] transition-colors">
                         +91 89272 73545
@@ -57,12 +57,12 @@ export default function ContactPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-lg flex items-center justify-center shadow-md mr-4">
+                <div className="flex items-start group cursor-pointer p-3 rounded-lg hover:bg-gray-50 transition-all duration-300">
+                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-lg flex items-center justify-center shadow-md mr-4 group-hover:scale-110 transition-transform duration-300">
                     <i className="fa fa-envelope text-base sm:text-lg"></i>
                   </div>
                   <div>
-                    <h5 className="font-heading font-bold text-gray-900 mb-1 text-lg sm:text-xl">Email</h5>
+                    <h5 className="font-heading font-bold text-gray-900 mb-1 text-lg sm:text-xl group-hover:text-[#964B00] transition-colors duration-300">Email</h5>
                     <p className="text-base sm:text-lg text-gray-700 mb-0">
                       <a href="mailto:info@mudbeaversikkim.in" className="text-[#964B00] hover:text-[#7a3d00] transition-colors">
                         info@mudbeaversikkim.in
@@ -138,11 +138,17 @@ export default function ContactPage() {
                     </div>
                     <div className="col-12">
                       <button
-                        className="btn btn-primary w-100 py-3 font-semibold text-lg"
+                        className="btn btn-primary w-100 py-3 font-semibold text-lg group relative overflow-hidden"
                         type="submit"
                         style={{ backgroundColor: '#964B00' }}
                       >
-                        Send Message
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          Send Message
+                          <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                          </svg>
+                        </span>
+                        <span className="absolute inset-0 bg-gradient-to-r from-[#7a3d00] to-[#964B00] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                       </button>
                     </div>
                   </div>

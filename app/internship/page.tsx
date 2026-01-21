@@ -46,6 +46,19 @@ export default function InternshipPage() {
         </div>
       </div>
 
+      {/* Section Divider */}
+      <div className="relative py-8 sm:py-12">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-200"></div>
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-white px-4 text-gray-500 text-sm">
+            <i className="fas fa-file-alt text-[#964B00] mr-2"></i>
+            Application Form
+          </span>
+        </div>
+      </div>
+
       {/* Form Section */}
       <div className="container-xxl py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="container">
@@ -235,10 +248,13 @@ export default function InternshipPage() {
               </div>
 
               {/* Payment Section */}
-              <div className="payment-section bg-gradient-to-br from-[#964B00]/5 to-[#b85c00]/5 p-6 sm:p-8 rounded-2xl mb-4 border-2 border-[#964B00]/20">
+              <div className="payment-section bg-gradient-to-br from-[#964B00]/5 to-[#b85c00]/5 p-6 sm:p-8 rounded-2xl mb-4 border-2 border-[#964B00]/20 hover:border-[#964B00]/40 transition-all duration-300">
                 <div className="text-center mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-full mb-4 shadow-lg">
+                    <i className="fas fa-rupee-sign text-xl sm:text-2xl"></i>
+                  </div>
                   <h4 className="font-heading font-bold mb-4 text-2xl sm:text-3xl text-[#964B00]">
-                    <i className="fas fa-rupee-sign me-2"></i>Payment Information
+                    Payment Information
                   </h4>
                   <div className="amount-display mb-4">
                     <p className="text-gray-600 mb-2 text-base sm:text-lg">
@@ -285,7 +301,7 @@ export default function InternshipPage() {
 
               <div className="text-center">
                 <button
-                  className="btn btn-primary btn-lg px-6 sm:px-8 py-3 sm:py-4 font-semibold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="btn btn-primary btn-lg px-6 sm:px-8 py-3 sm:py-4 font-semibold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
                   type="submit"
                   style={{
                     backgroundColor: '#964B00',
@@ -293,7 +309,11 @@ export default function InternshipPage() {
                     minWidth: '200px',
                   }}
                 >
-                  <i className="fas fa-paper-plane me-2"></i>Submit Application
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    <i className="fas fa-paper-plane group-hover:translate-x-1 transition-transform duration-300"></i>
+                    Submit Application
+                  </span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#7a3d00] to-[#964B00] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                 </button>
               </div>
             </form>

@@ -118,25 +118,29 @@ export default function ServicesPage() {
           <div className="row g-4 sm:g-6 justify-content-center">
             {services.map((service, index) => (
               <div key={index} className="col-lg-4 col-md-6">
-                <Link href={`/services/${service.slug}`} className="block h-100 no-underline" style={{ textDecoration: 'none' }}>
+                <Link href={`/services/${service.slug}`} className="block h-100 no-underline group" style={{ textDecoration: 'none' }}>
                   <div className="service-item bg-light overflow-hidden h-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer" style={{ textDecoration: 'none' }}>
-                    <div className="relative w-100" style={{ height: '300px' }}>
+                    <div className="relative w-100 overflow-hidden" style={{ height: '300px' }}>
                       <Image
-                        className="w-100"
+                        className="w-100 transition-transform duration-500 group-hover:scale-110"
                         src={service.image}
                         alt={service.title}
                         fill
                         style={{ objectFit: 'cover' }}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     <div className="service-text position-relative text-center h-100 p-5 sm:p-6" style={{ textDecoration: 'none' }} spellCheck="false">
-                      <h5 className="mb-3 font-heading text-gray-900 no-underline text-lg sm:text-xl" style={{ textDecoration: 'none', borderBottom: 'none' }} spellCheck="false">{service.title}</h5>
+                      <h5 className="mb-3 font-heading text-gray-900 no-underline text-lg sm:text-xl group-hover:text-[#964B00] transition-colors duration-300" style={{ textDecoration: 'none', borderBottom: 'none' }} spellCheck="false">{service.title}</h5>
                       <p className="text-gray-600 text-sm sm:text-base" style={{ textAlign: 'justify', textJustify: 'inter-word', textDecoration: 'none', borderBottom: 'none' }} spellCheck="false">
                         {service.description}
                       </p>
-                      <div className="mt-4 text-[#964B00] font-semibold text-sm sm:text-base" style={{ textDecoration: 'none', borderBottom: 'none' }}>
-                        Learn More →
+                      <div className="mt-4 text-[#964B00] font-semibold text-sm sm:text-base flex items-center justify-center gap-2 group-hover:gap-3 transition-all duration-300" style={{ textDecoration: 'none', borderBottom: 'none' }}>
+                        Learn More
+                        <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
                       </div>
                     </div>
                   </div>
@@ -144,6 +148,19 @@ export default function ServicesPage() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Section Divider */}
+      <div className="relative py-8 sm:py-12">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-200"></div>
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-white px-4 text-gray-500 text-sm">
+            <i className="fas fa-calendar-check text-[#964B00] mr-2"></i>
+            Book Your Appointment
+          </span>
         </div>
       </div>
 
@@ -246,11 +263,17 @@ export default function ServicesPage() {
                   </div>
                   <div className="col-12">
                     <button
-                      className="btn btn-primary w-100 py-3"
+                      className="btn btn-primary w-100 py-3 group relative overflow-hidden"
                       type="submit"
                       style={{ backgroundColor: '#964B00' }}
                     >
-                      Get Appointment
+                      <span className="relative z-10 flex items-center justify-center gap-2">
+                        Get Appointment
+                        <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </span>
+                      <span className="absolute inset-0 bg-gradient-to-r from-[#7a3d00] to-[#964B00] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                     </button>
                   </div>
                 </div>

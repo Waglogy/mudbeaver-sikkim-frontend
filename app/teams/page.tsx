@@ -139,6 +139,19 @@ export default function TeamsPage() {
             </div>
           </div>
 
+          {/* Section Divider */}
+          <div className="relative py-8 sm:py-12">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-white px-4 text-gray-500 text-sm">
+                <i className="fas fa-crown text-[#964B00] mr-2"></i>
+                Leadership Team
+              </span>
+            </div>
+          </div>
+
           {/* Leadership Team */}
           <div className="mb-12 sm:mb-16">
             <div className="text-center mb-8 sm:mb-12">
@@ -175,6 +188,19 @@ export default function TeamsPage() {
         </div>
       </div>
 
+      {/* Section Divider */}
+      <div className="relative py-8 sm:py-12">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-200"></div>
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-white px-4 text-gray-500 text-sm">
+            <i className="fas fa-users text-[#964B00] mr-2"></i>
+            Project Management Team
+          </span>
+        </div>
+      </div>
+
       {/* Project Management Team */}
       <div className="container-xxl py-12 sm:py-16 md:py-20">
         <div className="container">
@@ -186,19 +212,20 @@ export default function TeamsPage() {
           <div className="row g-4 sm:g-6">
             {teamMembers.projectManagement.map((member, index) => (
               <div key={index} className="col-lg-4 col-md-6">
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-100">
-                  <div className="relative w-100" style={{ height: '350px' }}>
+                <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-100 group hover:-translate-y-1">
+                  <div className="relative w-100 overflow-hidden" style={{ height: '350px' }}>
                     <Image
-                      className="w-100 h-100"
+                      className="w-100 h-100 transition-transform duration-500 group-hover:scale-110"
                       src={member.image}
                       alt={member.name}
                       fill
                       style={{ objectFit: 'cover' }}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-5 sm:p-6">
-                    <h5 className="font-heading font-bold text-gray-900 mb-2 text-lg sm:text-xl">{member.name}</h5>
+                    <h5 className="font-heading font-bold text-gray-900 mb-2 text-lg sm:text-xl group-hover:text-[#964B00] transition-colors duration-300">{member.name}</h5>
                     <p className="text-[#964B00] font-semibold mb-3 text-sm sm:text-base">{member.role}</p>
                     <p className="mb-0 text-sm sm:text-base text-gray-700 leading-relaxed">
                       {member.description}
@@ -208,6 +235,19 @@ export default function TeamsPage() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Section Divider */}
+      <div className="relative py-8 sm:py-12">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-200"></div>
+        </div>
+        <div className="relative flex justify-center">
+          <span className="bg-white px-4 text-gray-500 text-sm">
+            <i className="fas fa-user-graduate text-[#964B00] mr-2"></i>
+            Specialists & Experts
+          </span>
         </div>
       </div>
 
@@ -222,19 +262,20 @@ export default function TeamsPage() {
           <div className="row g-4 sm:g-6">
             {teamMembers.specialists.map((member, index) => (
               <div key={index} className="col-lg-4 col-md-6">
-                <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-100">
-                  <div className="relative w-100" style={{ height: '350px' }}>
+                <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-100 group hover:-translate-y-1">
+                  <div className="relative w-100 overflow-hidden" style={{ height: '350px' }}>
                     <Image
-                      className="w-100 h-100"
+                      className="w-100 h-100 transition-transform duration-500 group-hover:scale-110"
                       src={member.image}
                       alt={member.name}
                       fill
                       style={{ objectFit: 'cover' }}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   <div className="p-5 sm:p-6">
-                    <h5 className="font-heading font-bold text-gray-900 mb-2 text-lg sm:text-xl">{member.name}</h5>
+                    <h5 className="font-heading font-bold text-gray-900 mb-2 text-lg sm:text-xl group-hover:text-[#964B00] transition-colors duration-300">{member.name}</h5>
                     <p className="text-[#964B00] font-semibold mb-3 text-sm sm:text-base">{member.role}</p>
                     {typeof member.description === 'string' ? (
                       <p className="mb-0 text-sm sm:text-base text-gray-700 leading-relaxed">

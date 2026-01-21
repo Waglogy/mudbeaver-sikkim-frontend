@@ -1,8 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 
 export default function AboutPage() {
+  const [hoveredValue, setHoveredValue] = useState<number | null>(null)
+
   return (
     <main>
       {/* About Section */}
@@ -10,16 +13,17 @@ export default function AboutPage() {
         <div className="container">
           <div className="row g-5 align-items-center mb-8 sm:mb-12">
             <div className="col-lg-6">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl" style={{ height: '500px' }}>
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl group" style={{ height: '500px' }}>
                 <Image
-                  className="w-100 h-100 rounded-2xl"
+                  className="w-100 h-100 rounded-2xl transition-transform duration-500 group-hover:scale-110"
                   src="/img/about.png"
                   alt="Mud Beaver Sikkim"
                   fill
                   style={{ objectFit: 'cover' }}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute top-6 left-6 bg-white rounded-xl shadow-xl p-4 sm:p-5 transform hover:scale-105 transition-transform duration-300">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-6 left-6 bg-white rounded-xl shadow-xl p-4 sm:p-5 transform hover:scale-110 transition-transform duration-300 z-10">
                   <div className="flex flex-col justify-center items-center h-full p-3 sm:p-4 rounded-lg bg-gradient-to-br from-[#964B00] to-[#b85c00]">
                     <h1 className="text-white mb-1 text-xl sm:text-2xl font-heading font-bold">Mud</h1>
                     <h2 className="text-white mb-1 text-xl sm:text-2xl font-heading font-bold">Beavers</h2>
@@ -38,9 +42,14 @@ export default function AboutPage() {
                 </h1>
               </div>
               <div className="mb-5">
-                <h5 className="font-heading font-bold text-[#964B00] mb-3 text-lg sm:text-xl">
-                  <i className="fas fa-building me-2"></i>THE ENTERPRISE
-                </h5>
+                <div className="flex items-center gap-3 mb-4 group cursor-pointer">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-lg flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300">
+                    <i className="fas fa-building text-lg"></i>
+                  </div>
+                  <h5 className="font-heading font-bold text-[#964B00] mb-0 text-lg sm:text-xl group-hover:text-[#b85c00] transition-colors duration-300">
+                    THE ENTERPRISE
+                  </h5>
+                </div>
                 <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-4">
                   Mud Beaver Sikkim is a socio-sustainable construction enterprise focussing on specialisation in
                   research, development, promotion and transfer of earth based building technologies.
@@ -54,15 +63,47 @@ export default function AboutPage() {
             </div>
           </div>
 
+          {/* Stats Section */}
+          <div className="row g-4 sm:g-6 mb-8 sm:mb-12">
+            {[
+              { number: '4+', label: 'Years of Experience', icon: 'fa-calendar-alt' },
+              { number: '50+', label: 'Projects Completed', icon: 'fa-project-diagram' },
+              { number: '100%', label: 'Sustainable Focus', icon: 'fa-leaf' },
+            ].map((stat, index) => (
+              <div key={index} className="col-md-4">
+                <div className="bg-gradient-to-br from-gray-50 to-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 text-center border border-gray-100 hover:border-[#964B00]/30">
+                  <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-full mb-4 shadow-md">
+                    <i className={`fas ${stat.icon} text-xl sm:text-2xl`}></i>
+                  </div>
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-[#964B00] mb-2">{stat.number}</h3>
+                  <p className="text-base sm:text-lg text-gray-700 font-semibold mb-0">{stat.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Section Divider */}
+          <div className="relative py-8 sm:py-12">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-white px-4 text-gray-500 text-sm">
+                <i className="fas fa-bullseye text-[#964B00] mr-2"></i>
+                Mission & Vision
+              </span>
+            </div>
+          </div>
+
           {/* Mission & Vision Section */}
           <div className="row g-4 sm:g-6 mb-8 sm:mb-12">
             <div className="col-lg-6">
-              <div className="bg-gradient-to-br from-gray-50 to-white p-6 sm:p-8 rounded-2xl shadow-xl h-100 border-l-4 border-[#964B00] hover:shadow-2xl transition-shadow duration-300">
+              <div className="bg-gradient-to-br from-gray-50 to-white p-6 sm:p-8 rounded-2xl shadow-xl h-100 border-l-4 border-[#964B00] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center mb-4 sm:mb-6">
-                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-full flex items-center justify-center shadow-md mr-4">
+                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-full flex items-center justify-center shadow-md mr-4 group-hover:scale-110 transition-transform duration-300">
                     <i className="fas fa-bullseye text-lg sm:text-xl"></i>
                   </div>
-                  <h4 className="mb-0 font-heading font-bold text-gray-900 text-xl sm:text-2xl">Mission</h4>
+                  <h4 className="mb-0 font-heading font-bold text-gray-900 text-xl sm:text-2xl group-hover:text-[#964B00] transition-colors duration-300">Mission</h4>
                 </div>
                 <p className="mb-0 text-base sm:text-lg text-gray-700 leading-relaxed">
                   To build earthen dwellings of timeless, natural beauty, contributing to quality sustainable homes that
@@ -71,12 +112,12 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="bg-gradient-to-br from-gray-50 to-white p-6 sm:p-8 rounded-2xl shadow-xl h-100 border-l-4 border-[#964B00] hover:shadow-2xl transition-shadow duration-300">
+              <div className="bg-gradient-to-br from-gray-50 to-white p-6 sm:p-8 rounded-2xl shadow-xl h-100 border-l-4 border-[#964B00] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex items-center mb-4 sm:mb-6">
-                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-full flex items-center justify-center shadow-md mr-4">
+                  <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-full flex items-center justify-center shadow-md mr-4 group-hover:scale-110 transition-transform duration-300">
                     <i className="fas fa-eye text-lg sm:text-xl"></i>
                   </div>
-                  <h4 className="mb-0 font-heading font-bold text-gray-900 text-xl sm:text-2xl">Vision</h4>
+                  <h4 className="mb-0 font-heading font-bold text-gray-900 text-xl sm:text-2xl group-hover:text-[#964B00] transition-colors duration-300">Vision</h4>
                 </div>
                 <p className="mb-0 text-base sm:text-lg text-gray-700 leading-relaxed">
                   We believe in &quot;building future&quot;, a &quot;green future&quot; of natural beauty, resilient and green
@@ -85,6 +126,19 @@ export default function AboutPage() {
                   our love for the planet and our future.
                 </p>
               </div>
+            </div>
+          </div>
+
+          {/* Section Divider */}
+          <div className="relative py-8 sm:py-12">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-white px-4 text-gray-500 text-sm">
+                <i className="fas fa-gem text-[#964B00] mr-2"></i>
+                Our Foundation
+              </span>
             </div>
           </div>
 
@@ -133,15 +187,34 @@ export default function AboutPage() {
                   'We don\'t believe in hiring but making someone a part of what we do, where in we share-camaraderie to learn, improve and grow together by providing opportunities specially to the student\'s and the local\'s.',
               },
             ].map((value, index) => (
-              <div key={index} className="col-lg-6">
-                <div className="p-5 sm:p-6 rounded-xl hover:bg-gray-50 transition-all duration-300">
+              <div
+                key={index}
+                className="col-lg-6"
+                onMouseEnter={() => setHoveredValue(index)}
+                onMouseLeave={() => setHoveredValue(null)}
+              >
+                <div className={`p-5 sm:p-6 rounded-xl transition-all duration-300 ${
+                  hoveredValue === index 
+                    ? 'bg-white shadow-xl border-2 border-[#964B00]/30 -translate-y-1' 
+                    : 'bg-gray-50/50 hover:bg-white hover:shadow-lg'
+                }`}>
                   <div className="flex items-start">
-                    <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-lg flex items-center justify-center mr-4">
+                    <div className={`flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#964B00] to-[#b85c00] text-white rounded-lg flex items-center justify-center mr-4 transition-transform duration-300 ${
+                      hoveredValue === index ? 'scale-110 rotate-3' : ''
+                    }`}>
                       <i className={`fas ${value.icon} text-base sm:text-lg`}></i>
                     </div>
                     <div className="flex-1">
-                      <h5 className="font-heading font-bold text-gray-900 mb-2 text-lg sm:text-xl">{value.title}</h5>
-                      <blockquote className="border-l-3 border-[#964B00] pl-3 mb-3 italic text-[#964B00] text-sm sm:text-base font-serif">
+                      <h5 className={`font-heading font-bold mb-2 text-lg sm:text-xl transition-colors duration-300 ${
+                        hoveredValue === index ? 'text-[#964B00]' : 'text-gray-900'
+                      }`}>
+                        {value.title}
+                      </h5>
+                      <blockquote className={`border-l-4 pl-3 mb-3 italic text-sm sm:text-base font-serif transition-all duration-300 ${
+                        hoveredValue === index 
+                          ? 'border-[#964B00] text-[#964B00]' 
+                          : 'border-[#964B00]/50 text-[#964B00]/80'
+                      }`}>
                         &quot;{value.quote}&quot;
                       </blockquote>
                       <p className="mb-0 text-base sm:text-lg text-gray-700 leading-relaxed">
