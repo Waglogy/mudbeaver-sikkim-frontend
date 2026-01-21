@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { internshipAPI } from '@/lib/api'
 
 export default function InternshipPage() {
   const [formData, setFormData] = useState({
@@ -16,10 +17,52 @@ export default function InternshipPage() {
     institution: '',
   })
   const [file, setFile] = useState<File | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    alert('Form submission functionality is not implemented. Please contact us directly.')
+    
+    if (!file) {
+      setSubmitStatus({ type: 'error', message: 'Please upload payment screenshot' })
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
+
+    try {
+      const formDataToSend = new FormData()
+      Object.keys(formData).forEach((key) => {
+        formDataToSend.append(key, formData[key as keyof typeof formData])
+      })
+      formDataToSend.append('payment_screenshot', file)
+
+      await internshipAPI.submit(formDataToSend)
+      setSubmitStatus({ type: 'success', message: 'Application submitted successfully! We will review your application and get back to you soon.' })
+      setFormData({
+        name: '',
+        date_of_birth: '',
+        email: '',
+        phone: '',
+        address: '',
+        city: '',
+        region: '',
+        zip_code: '',
+        institution: '',
+      })
+      setFile(null)
+      // Reset file input
+      const fileInput = document.getElementById('payment_screenshot') as HTMLInputElement
+      if (fileInput) fileInput.value = ''
+    } catch (error) {
+      setSubmitStatus({ 
+        type: 'error', 
+        message: error instanceof Error ? error.message : 'Failed to submit application. Please try again later.' 
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -299,6 +342,12 @@ export default function InternshipPage() {
                 </div>
               </div>
 
+              {submitStatus.type && (
+                <div className={`mb-4 alert ${submitStatus.type === 'success' ? 'alert-success' : 'alert-danger'} rounded-lg`} role="alert">
+                  {submitStatus.message}
+                </div>
+              )}
+
               <div className="text-center">
                 <button
                   className="btn btn-primary btn-lg px-6 sm:px-8 py-3 sm:py-4 font-semibold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
@@ -308,10 +357,20 @@ export default function InternshipPage() {
                     border: 'none',
                     minWidth: '200px',
                   }}
+                  disabled={isSubmitting}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    <i className="fas fa-paper-plane group-hover:translate-x-1 transition-transform duration-300"></i>
-                    Submit Application
+                    {isSubmitting ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-paper-plane group-hover:translate-x-1 transition-transform duration-300"></i>
+                        Submit Application
+                      </>
+                    )}
                   </span>
                   <span className="absolute inset-0 bg-gradient-to-r from-[#7a3d00] to-[#964B00] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                 </button>

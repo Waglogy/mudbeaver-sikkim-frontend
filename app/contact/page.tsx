@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { contactAPI } from '@/lib/api'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -10,10 +11,26 @@ export default function ContactPage() {
     subject: '',
     message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    alert('Form submission functionality is not implemented. Please contact us directly.')
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
+
+    try {
+      await contactAPI.submit(formData)
+      setSubmitStatus({ type: 'success', message: 'Thank you! Your message has been sent successfully. We will get back to you soon.' })
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    } catch (error) {
+      setSubmitStatus({ 
+        type: 'error', 
+        message: error instanceof Error ? error.message : 'Failed to send message. Please try again later.' 
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -136,17 +153,32 @@ export default function ContactPage() {
                         <label htmlFor="message">Message</label>
                       </div>
                     </div>
+                    {submitStatus.type && (
+                      <div className={`col-12 alert ${submitStatus.type === 'success' ? 'alert-success' : 'alert-danger'} rounded-lg`} role="alert">
+                        {submitStatus.message}
+                      </div>
+                    )}
                     <div className="col-12">
                       <button
                         className="btn btn-primary w-100 py-3 font-semibold text-lg group relative overflow-hidden"
                         type="submit"
                         style={{ backgroundColor: '#964B00' }}
+                        disabled={isSubmitting}
                       >
                         <span className="relative z-10 flex items-center justify-center gap-2">
-                          Send Message
-                          <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                          </svg>
+                          {isSubmitting ? (
+                            <>
+                              <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                              Sending...
+                            </>
+                          ) : (
+                            <>
+                              Send Message
+                              <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                              </svg>
+                            </>
+                          )}
                         </span>
                         <span className="absolute inset-0 bg-gradient-to-r from-[#7a3d00] to-[#964B00] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                       </button>

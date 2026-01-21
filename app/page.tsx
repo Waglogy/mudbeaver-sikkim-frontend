@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { requirementsAPI } from '@/lib/api'
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -25,6 +26,8 @@ export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [isSubmittingRequirements, setIsSubmittingRequirements] = useState(false)
+  const [requirementsStatus, setRequirementsStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' })
 
   // All images for lightbox
   const allImages = ['/img/w1.jpg', '/img/w2.jpg', '/img/w3.jpg', '/img/w4.jpg', '/img/w5.jpg', '/img/w6.jpg', '/img/w7.jpg']
@@ -123,9 +126,48 @@ export default function Home() {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    alert('Form submission functionality is not implemented. Please contact us directly.')
+    setIsSubmittingRequirements(true)
+    setRequirementsStatus({ type: null, message: '' })
+
+    try {
+      const formDataToSend = new FormData()
+      Object.keys(formData).forEach((key) => {
+        const value = formData[key as keyof typeof formData]
+        if (value) {
+          formDataToSend.append(key, value)
+        }
+      })
+      if (file) {
+        formDataToSend.append('drawings', file)
+      }
+
+      await requirementsAPI.submit(formDataToSend)
+      setRequirementsStatus({ type: 'success', message: 'Requirements submitted successfully! We will review your requirements and get back to you soon.' })
+      setFormData({
+        username: '',
+        email: '',
+        phone: '',
+        address: '',
+        site_details: '',
+        area: '',
+        budget: '',
+        category: '',
+        services: '',
+        message: '',
+      })
+      setFile(null)
+      setFileName('No file chosen')
+      setShowMoreFields(false)
+    } catch (error) {
+      setRequirementsStatus({ 
+        type: 'error', 
+        message: error instanceof Error ? error.message : 'Failed to submit requirements. Please try again later.' 
+      })
+    } finally {
+      setIsSubmittingRequirements(false)
+    }
   }
 
   return (
@@ -486,6 +528,12 @@ export default function Home() {
                     )}
 
                   </div>
+                  
+                  {requirementsStatus.type && (
+                    <div className={`mb-4 alert ${requirementsStatus.type === 'success' ? 'alert-success' : 'alert-danger'} rounded-lg`} role="alert">
+                      {requirementsStatus.message}
+                    </div>
+                  )}
                 </form>
                 {/* Submit Button - Bottom Right */}
                 <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6">
@@ -494,8 +542,18 @@ export default function Home() {
                     onClick={handleSubmit}
                     className="btn btn-primary px-4 py-2"
                     style={{ backgroundColor: '#964B00', borderColor: '#964B00', fontSize: '0.875rem' }}
+                    disabled={isSubmittingRequirements}
                   >
-                    <i className="fas fa-paper-plane me-2"></i>Submit Requirements
+                    {isSubmittingRequirements ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-paper-plane me-2"></i>Submit Requirements
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
@@ -1030,10 +1088,39 @@ function AppointmentForm() {
     service_type: '',
     message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    alert('Form submission functionality is not implemented. Please contact us directly.')
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
+
+    try {
+      const formDataToSend = new FormData()
+      formDataToSend.append('username', formData.username)
+      formDataToSend.append('email', formData.email)
+      formDataToSend.append('phone', formData.mobile)
+      formDataToSend.append('services', formData.service_type)
+      formDataToSend.append('message', formData.message)
+
+      await requirementsAPI.submit(formDataToSend)
+      setSubmitStatus({ type: 'success', message: 'Appointment request submitted successfully! We will get back to you soon.' })
+      setFormData({
+        username: '',
+        email: '',
+        mobile: '',
+        service_type: '',
+        message: '',
+      })
+    } catch (error) {
+      setSubmitStatus({ 
+        type: 'error', 
+        message: error instanceof Error ? error.message : 'Failed to submit appointment request. Please try again later.' 
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -1109,13 +1196,27 @@ function AppointmentForm() {
             <label htmlFor="message">Message</label>
           </div>
         </div>
+        {submitStatus.type && (
+          <div className={`col-12 alert ${submitStatus.type === 'success' ? 'alert-success' : 'alert-danger'} rounded-lg`} role="alert">
+            {submitStatus.message}
+          </div>
+        )}
         <div className="col-12">
-          <button className="btn btn-primary w-100 py-3 group relative overflow-hidden" type="submit">
+          <button className="btn btn-primary w-100 py-3 group relative overflow-hidden" type="submit" disabled={isSubmitting}>
             <span className="relative z-10 flex items-center justify-center gap-2">
-              Get Appointment
-              <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              {isSubmitting ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  Submitting...
+                </>
+              ) : (
+                <>
+                  Get Appointment
+                  <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </>
+              )}
             </span>
             <span className="absolute inset-0 bg-gradient-to-r from-[#7a3d00] to-[#964B00] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
           </button>

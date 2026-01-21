@@ -1,12 +1,14 @@
 # Mud Beavers Sikkim - Next.js Frontend
 
-This project has been migrated from Express.js/EJS to Next.js with Tailwind CSS. This is a frontend-only application.
+This project has been migrated from Express.js/EJS to Next.js with Tailwind CSS. The frontend is now connected to a Node.js/Express backend API.
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 18.0.0 or higher
+- MongoDB database (for backend)
+- Cloudinary account (for image/file uploads)
 
 ### Installation
 
@@ -15,12 +17,25 @@ This project has been migrated from Express.js/EJS to Next.js with Tailwind CSS.
 npm install
 ```
 
-2. Run the development server:
+2. Set up environment variables:
+   - Copy `.env.local.example` to `.env.local`
+   - Update `NEXT_PUBLIC_API_URL` to point to your backend API (default: `http://localhost:5000/api`)
+
+3. Start the backend server:
+```bash
+cd mudbeaver-backend
+npm install
+# Create .env file with MongoDB URI, Cloudinary credentials, etc.
+npm run create-admin  # Create admin user
+npm run dev  # Start backend server
+```
+
+4. Run the frontend development server:
 ```bash
 npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
 
@@ -74,10 +89,38 @@ npm run build
 npm start
 ```
 
+## Backend Integration
+
+The frontend is connected to a backend API located in the `mudbeaver-backend` directory. The backend handles:
+
+- **Contact Form**: Submit contact inquiries
+- **Internship Applications**: Submit internship applications with payment screenshot uploads
+- **Requirements Form**: Submit project requirements with optional PDF drawings
+- **Blog Posts**: Fetch and display blog posts (up to 4 images per post)
+- **Admin Authentication**: JWT-based admin authentication for managing content
+
+### API Configuration
+
+The frontend communicates with the backend via the API utility in `lib/api.ts`. Make sure to:
+
+1. Set `NEXT_PUBLIC_API_URL` in your `.env.local` file
+2. Ensure CORS is properly configured on the backend
+3. Backend should be running on the configured port (default: 5000)
+
+### Forms
+
+All forms are now functional and connected to the backend:
+- Contact form (`/contact`)
+- Internship application form (`/internship`) - includes file upload
+- Requirements form (homepage) - includes optional PDF upload
+- Appointment form (homepage)
+
+### Blog Posts
+
+Blog posts are fetched from the backend API. The blog page displays published posts with support for up to 4 images per post.
+
 ## Notes
 
-- This is a frontend-only application - no backend/API routes
-- Forms are present but show alerts when submitted (no actual submission)
 - Static assets in `public` directory are automatically served by Next.js
 - Bootstrap JavaScript is loaded via CDN for carousel and other interactive features
-- The old Express.js server files are preserved but not used
+- Backend API documentation is available in `mudbeaver-backend/README.md`
