@@ -1,0 +1,529 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-color: #964B00;
+    --bs-primary: #964B00;
+    --bs-primary-rgb: 150, 75, 0;
+  }
+
+  body {
+    @apply font-sans;
+    font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+    font-family: var(--font-playfair), 'Playfair Display', serif;
+    font-weight: 600;
+  }
+
+  /* Override Bootstrap blue colors */
+  .btn-primary {
+    background-color: #964B00 !important;
+    border-color: #964B00 !important;
+    color: white !important;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus,
+  .btn-primary:active {
+    background-color: #7a3d00 !important;
+    border-color: #7a3d00 !important;
+    color: white !important;
+  }
+
+  .btn-outline-primary {
+    color: #964B00 !important;
+    border-color: #964B00 !important;
+  }
+
+  .btn-outline-primary:hover,
+  .btn-outline-primary:focus,
+  .btn-outline-primary:active {
+    background-color: #964B00 !important;
+    border-color: #964B00 !important;
+    color: white !important;
+  }
+
+  .text-primary {
+    color: #964B00 !important;
+  }
+
+  .bg-primary {
+    background-color: #964B00 !important;
+  }
+
+  .border-primary {
+    border-color: #964B00 !important;
+  }
+
+  a {
+    color: #964B00;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #7a3d00;
+    text-decoration: none;
+  }
+
+  a:focus {
+    text-decoration: none;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  a:focus-visible {
+    outline: 2px solid #964B00 !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Override Bootstrap link colors */
+  .btn-link {
+    color: #964B00 !important;
+  }
+
+  .btn-link:hover {
+    color: #7a3d00 !important;
+  }
+
+  /* Override focus ring colors */
+  *:focus {
+    outline-color: #964B00 !important;
+  }
+
+  /* Remove blue borders and outlines from service cards and links */
+  .service-item a:focus,
+  .service-item a:focus-visible,
+  .service-item:focus,
+  .service-item:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
+  }
+
+  .service-item:hover {
+    outline: none !important;
+  }
+
+  /* Remove underlines from headings inside links */
+  a h1,
+  a h2,
+  a h3,
+  a h4,
+  a h5,
+  a h6 {
+    text-decoration: none !important;
+  }
+
+  .service-item h5,
+  .service-item h5:hover,
+  .service-item h5:focus {
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+
+  /* Remove all underlines from service cards */
+  .service-item,
+  .service-item * {
+    text-decoration: none !important;
+  }
+
+  .service-item a,
+  .service-item a:hover,
+  .service-item a:focus,
+  .service-item a:visited {
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+
+  .service-item p,
+  .service-item h5,
+  .service-item div {
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+
+  /* Remove browser spell-check underlines */
+  .service-item {
+    -webkit-text-decoration-skip: none;
+    text-decoration-skip: none;
+  }
+
+  .service-item * {
+    -webkit-text-decoration-skip: none;
+    text-decoration-skip: none;
+  }
+
+  /* Disable spell-check visual indicators */
+  .service-item,
+  .service-item * {
+    -webkit-text-decoration-line: none !important;
+    text-decoration-line: none !important;
+  }
+
+  /* Additional override for any remaining underlines */
+  .service-item a,
+  .service-item a *,
+  .service-item p,
+  .service-item h5,
+  .service-item div {
+    text-decoration: none !important;
+    -webkit-text-decoration: none !important;
+    border-bottom: none !important;
+    text-decoration-line: none !important;
+    -webkit-text-decoration-line: none !important;
+  }
+
+  /* Floating message animation */
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out;
+  }
+
+  /* Lightbox fade in animation */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #964B00 !important;
+    box-shadow: 0 0 0 0.25rem rgba(150, 75, 0, 0.25) !important;
+    outline: none !important;
+  }
+
+  /* Remove any blue colors from form controls */
+  .form-control:focus-visible,
+  .form-select:focus-visible {
+    border-color: #964B00 !important;
+    box-shadow: 0 0 0 0.25rem rgba(150, 75, 0, 0.25) !important;
+    outline: 2px solid #964B00 !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Ensure form controls have border radius */
+  .form-control {
+    border-radius: 0.375rem !important;
+    border-color: #d1d5db !important;
+  }
+
+  .form-control:hover {
+    border-color: #9ca3af !important;
+  }
+
+  /* Reduce placeholder/label font size */
+  .form-floating > label {
+    font-size: 0.875rem !important;
+    padding: 0.75rem 0.75rem !important;
+    color: #6b7280 !important;
+  }
+
+  /* Ensure no blue colors in any form elements */
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  input[type="file"]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: #964B00 !important;
+    box-shadow: 0 0 0 0.25rem rgba(150, 75, 0, 0.25) !important;
+    outline: none !important;
+  }
+
+  /* Override any Bootstrap blue link colors in forms */
+  .form-text,
+  .form-text a {
+    color: #6b7280 !important;
+  }
+
+  /* File upload styling */
+  .file-upload-label {
+    color: #964B00 !important;
+  }
+
+  .file-upload-label:hover {
+    color: #7a3d00 !important;
+  }
+
+  /* Override breadcrumb active color */
+  .breadcrumb-item.active {
+    color: #964B00 !important;
+  }
+
+  /* Override any Bootstrap blue badges or alerts */
+  .badge-primary,
+  .bg-primary {
+    background-color: #964B00 !important;
+  }
+
+  /* Override carousel controls */
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    filter: invert(1) grayscale(100%) brightness(200%);
+  }
+
+  /* Ensure no blue colors in any Bootstrap components */
+  .btn-primary:not(:disabled):not(.disabled):active,
+  .btn-primary:not(:disabled):not(.disabled).active {
+    background-color: #7a3d00 !important;
+    border-color: #7a3d00 !important;
+  }
+}
+
+@layer components {
+  /* Custom scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #964B00 #f1f1f1;
+  }
+
+  *::-webkit-scrollbar {
+    @apply w-2.5;
+  }
+
+  *::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply bg-[#964B00] rounded;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#7a3d00];
+  }
+
+  /* Navbar styles */
+  nav {
+    @apply backdrop-blur-sm;
+  }
+
+  /* Back to top button */
+  .back-to-top {
+    @apply fixed bottom-5 right-5 z-[1000] hidden;
+  }
+
+  .back-to-top.show {
+    @apply block;
+  }
+
+  /* Spinner */
+  #spinner {
+    @apply hidden;
+  }
+
+  #spinner.show {
+    @apply flex;
+  }
+
+  /* Page header */
+  .page-header {
+    @apply bg-[#964B00] text-white;
+  }
+
+  /* Service items */
+  .service-item {
+    @apply bg-gray-50 overflow-hidden h-full rounded-lg shadow-md transition-shadow hover:shadow-lg;
+  }
+
+  .service-text {
+    @apply relative text-center h-full p-4;
+  }
+
+  /* Team items */
+  .team-item {
+    @apply relative overflow-hidden rounded-lg shadow-md transition-transform hover:scale-105;
+  }
+
+  .team-text {
+    @apply absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4 text-center;
+  }
+
+  /* Form floating labels */
+  .form-floating > label {
+    @apply py-4 px-3;
+    font-size: 0.875rem !important;
+  }
+
+  /* Values card */
+  .values-card {
+    @apply bg-gray-50 p-4 rounded-lg h-full border-l-4 border-[#964b00];
+  }
+
+  .values-icon {
+    @apply text-[#964B00] text-2xl;
+  }
+
+  /* Team card wrapper */
+  .team-card-wrapper {
+    @apply h-full;
+  }
+
+  .team-description {
+    @apply mt-3;
+  }
+
+  /* Beaver info card */
+  .beaver-info-card {
+    @apply bg-gray-50 p-4 rounded-lg h-full;
+  }
+
+  /* File upload */
+  .file-upload-wrapper {
+    @apply relative;
+  }
+
+  .file-upload-label {
+    @apply block cursor-pointer;
+  }
+
+  .file-upload-text {
+    @apply inline-block;
+  }
+
+  .file-upload-name {
+    @apply block mt-2 text-sm text-gray-600;
+  }
+
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      @apply opacity-0;
+    }
+    to {
+      @apply opacity-100;
+    }
+  }
+
+  .fadeIn {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  /* Modern underline animation */
+  @keyframes slideIn {
+    from {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    to {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+
+  .nav-underline {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  /* Hero section animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .hero-content {
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .hero-badge {
+    animation: fadeIn 0.6s ease-out 0.2s both;
+  }
+
+  .hero-heading {
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+
+  .hero-subtitle {
+    animation: fadeInUp 0.8s ease-out 0.5s both;
+  }
+
+  .hero-tags {
+    animation: fadeInUp 0.8s ease-out 0.7s both;
+  }
+
+  .hero-cta {
+    animation: fadeInUp 0.8s ease-out 0.9s both;
+  }
+
+  /* Floating animation for beaver box */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .floating-box {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  .text-primary {
+    @apply text-[#964B00];
+  }
+
+  .bg-primary {
+    @apply bg-[#964B00];
+  }
+
+  .border-primary {
+    @apply border-[#964B00];
+  }
+
+  /* Gradient utilities */
+  .gradient-primary {
+    background: linear-gradient(135deg, #964B00 0%, #b85c00 100%);
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(135deg, rgba(150, 75, 0, 0.9) 0%, rgba(122, 61, 0, 0.85) 50%, rgba(90, 45, 0, 0.9) 100%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #964B00 0%, #b85c00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
