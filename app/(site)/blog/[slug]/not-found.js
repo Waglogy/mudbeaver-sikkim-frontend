@@ -1,0 +1,2 @@
+import PageEnd from "@/components/PageEnd"
+export default function ArticleNotFound() { return <><main className="mb-page-section"><div className="mb-container mb-journal-empty"><p className="mb-section-eyebrow">OUR JOURNAL</p><h1>This story isn’t here.</h1><p>It may have been removed, or the address may be incorrect.</p><a className="mb-btn mb-btn--primary" href="/blog">Back to the journal</a></div></main><PageEnd /></> }

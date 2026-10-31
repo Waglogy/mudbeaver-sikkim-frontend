@@ -1,54 +1,56 @@
 import SiteChrome from "@/components/SiteChrome"
-import SiteScripts from "@/components/SiteScripts"
+import PageEnd from "@/components/PageEnd"
 
 export const metadata = {
-    title: "Mud beavers sikkim",
+    title: "Page not found | Mud Beavers Sikkim",
 }
 
+// 404: the chomper beaver has chewed through this page
 export default function NotFound() {
     return (
         <SiteChrome>
-            {/* Page Header Start */}
-            <div className="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
-                <div className="container text-center py-5">
-                    <h1 className="display-4 text-white animated slideInDown mb-4">404 Error</h1>
-                    <nav aria-label="breadcrumb animated slideInDown">
-                        <ol className="breadcrumb justify-content-center mb-0">
-                            <li className="breadcrumb-item">
-                                <a className="text-white" href="#">Home</a>
-                            </li>
-                            <li className="breadcrumb-item">
-                                <a className="text-white" href="#">Pages</a>
-                            </li>
-                            <li className="breadcrumb-item text-primary active" aria-current="page">404 Error</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-            {/* Page Header End */}
-            {/* 404 Start */}
-            <div className="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-                <div className="container text-center">
-                    <div className="row justify-content-center">
-                        <div className="col-lg-6">
-                            <i className="bi bi-exclamation-triangle display-1 text-primary"></i>
-                            <h1 className="display-1">404</h1>
-                            <h1 className="mb-4">Page Not Found</h1>
-                            <p className="mb-4">
-                                We’re sorry, the page you have looked for does not exist in our website! Maybe
-                                go to our home page or try to use a search?
-                            </p>
-                            <a className="btn btn-primary py-3 px-5" href="//">Go Back To Home</a>
+            <main className="mb-404">
+                <div className="mb-container mb-404__inner">
+                    <div className="mb-404__art" aria-hidden="true">
+                        <span className="mb-404__digits">
+                            4<span>0</span>4
+                        </span>
+                        <img
+                            src="/img/beaver/beaver-chomper.webp"
+                            alt=""
+                            width="220"
+                            height="240"
+                        />
+                        <span className="mb-404__chips">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                        </span>
+                    </div>
+                    <div className="mb-404__text">
+                        <p className="mb-section-eyebrow">ERROR 404</p>
+                        <h1>Oops! Our beaver chewed through this page.</h1>
+                        <p>
+                            The page you were looking for doesn’t exist, or it
+                            has moved. Let’s get you back on solid ground.
+                        </p>
+                        <div className="mb-404__actions">
+                            <a className="mb-btn mb-btn--primary" href="/">
+                                Back to home
+                                <i
+                                    className="bi bi-arrow-right"
+                                    aria-hidden="true"
+                                ></i>
+                            </a>
+                            <a className="mb-404__link" href="/contact">
+                                Contact us
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-            {/* 404 End */}
-            {/* Back to Top */}
-            <a href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top">
-                <i className="bi bi-arrow-up"></i>
-            </a>
-            <SiteScripts />
+            </main>
+            <PageEnd />
         </SiteChrome>
     )
 }

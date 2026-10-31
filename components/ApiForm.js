@@ -50,9 +50,11 @@ export default function ApiForm({
             method={method}
             encType={encType}
             onSubmit={handleSubmit}
+            aria-busy={submitting}
             {...props}
         >
-            {children}
+            <fieldset className="mb-api-fields" disabled={submitting}>{children}</fieldset>
+            {submitting && <p className="mt-3 mb-0" role="status">Sending your details…</p>}
             {message && (
                 <p className="mt-3 mb-0" role="status">
                     {message}

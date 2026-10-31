@@ -161,9 +161,9 @@ export default function RequirementsForm({ onDone, onClose }) {
                     </p>
                     <img
                         className="mb-guide__beaver"
-                        src="/img/beaver/beaver.webp"
+                        src="/img/beaver/beaver-talker.webp"
                         alt=""
-                        width="250"
+                        width="216"
                         height="240"
                     />
                 </div>
@@ -172,11 +172,20 @@ export default function RequirementsForm({ onDone, onClose }) {
             <div className="mb-wizard__main">
                 {doneMessage ? (
                     <div className="mb-wizard__done">
+                        {/* The builder beaver, ready to get started */}
                         <span
-                            className="mb-wizard__done-icon"
+                            className="mb-wizard__done-art"
                             aria-hidden="true"
                         >
-                            <i className="fas fa-check"></i>
+                            <img
+                                src="/img/beaver/beaver-builder.webp"
+                                alt=""
+                                width="144"
+                                height="240"
+                            />
+                            <span className="mb-wizard__done-check">
+                                <i className="fas fa-check"></i>
+                            </span>
                         </span>
                         <h3>{doneMessage}</h3>
                         <p>

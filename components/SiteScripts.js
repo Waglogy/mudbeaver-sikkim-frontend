@@ -36,6 +36,8 @@ function startCarousels() {
 
 export default function SiteScripts({ extra = [] }) {
     useEffect(() => {
+        // Content is already rendered; external libraries must not block the page.
+        document.getElementById("spinner")?.classList.remove("show")
         if (loaded) return
         loaded = true
         const scripts = [...SCRIPTS, ...extra, TEMPLATE_SCRIPT]

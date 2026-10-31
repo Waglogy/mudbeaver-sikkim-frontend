@@ -1,125 +1,27 @@
-import Footer from "@/components/Footer"
-import SiteScripts from "@/components/SiteScripts"
+import { blogPath } from "@/lib/blogUrls"
+import { absoluteUrl } from "@/lib/seo"
+import PageIntro from "@/components/PageIntro"
+import PageEnd from "@/components/PageEnd"
+import BlogGallery from "@/components/BlogGallery"
 import { getFromApi } from "@/lib/api"
-
-// The blog sliders use Bootstrap 4 data attributes (data-ride / data-slide)
-const BLOG_SCRIPTS = ["https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"]
-
 export const metadata = {
-    title: "Blog-MudBeaverSikkim",
+    title: "Sustainable Building Journal | Mud Beavers Sikkim",
+    description: "Explore stories and ideas about earth construction, climate-responsive homes, and sustainable living from Mud Beavers Sikkim.",
+    alternates: { canonical: absoluteUrl("/blog") },
+    openGraph: { type: "website", title: "Our Journal | Mud Beavers Sikkim", description: "Ideas and stories about sustainable building and living in Sikkim.", url: absoluteUrl("/blog") },
 }
-
 export const dynamic = "force-dynamic"
-
 export default async function BlogPage() {
-    const data = await getFromApi("/blogs", [])
-
-    return (
-        <>
-            {/* Page Header Start */}
-            <div className="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
-                <div className="container text-center py-5">
-                    <h1 className="display-4 text-white animated slideInDown mb-4">Blog</h1>
-                    <nav aria-label="breadcrumb animated slideInDown">
-                        <ol className="breadcrumb justify-content-center mb-0">
-                            <li className="breadcrumb-item">
-                                <a className="text-white" href="#">Home</a>
-                            </li>
-                            <li className="breadcrumb-item">
-                                <a className="text-white" href="#">Pages</a>
-                            </li>
-                            <li className="breadcrumb-item text-primary active" aria-current="page">blog</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-            {/* Page Header End */}
-            {/* Team Start */}
-            <div className="container-xxl py-5">
-                <div className="container">
-                    <div className="row g-5 align-items-end mb-5">
-                        <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div className="border-start border-5 border-primary ps-4">
-                                <h6 className="text-body text-uppercase mb-2">Blogs/News</h6>
-                                <h1 className="display-6 mb-0">Our Latest Updates</h1>
-                            </div>
-                        </div>
-                    </div>
-                    {data.map((post) => (
-                    <div className="news" key={post.id}>
-                        {/* posts begin */}
-                        <div className="row gx-5">
-                            <div className="col-md-6 mb-4">
-                                <div
-                                    className="bg-image hover-overlay ripple shadow-2-strong rounded-5"
-                                    data-mdb-ripple-color="light"
-                                >
-                                    {/* slider start */}
-                                    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
-                                        <ol className="carousel-indicators">
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                        </ol>
-                                        <div className="carousel-inner">
-                                            <div className="carousel-item active">
-                                                <img className="d-block w-100" src={post.image[0]} alt="first slide image" />
-                                            </div>
-                                            {post.image.map((image, index) => (
-                                                <div className="carousel-item" key={index}>
-                                                    <img className="d-block w-100" src={image} alt="slide" />
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <a
-                                            className="carousel-control-prev"
-                                            href="#carouselExampleIndicators"
-                                            role="button"
-                                            data-slide="prev"
-                                        >
-                                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span className="sr-only">Previous</span>
-                                        </a>
-                                        <a
-                                            className="carousel-control-next"
-                                            href="#carouselExampleIndicators"
-                                            role="button"
-                                            data-slide="next"
-                                        >
-                                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span className="sr-only">Next</span>
-                                        </a>
-                                    </div>
-                                    {/* Slider End */}
-                                    <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}></div>
-                                </div>
-                            </div>
-                            <div className="col-md-6 mb-4">
-                                <span className="badge bg-danger px-2 py-1 shadow-1-strong mb-3">News of the day</span>
-                                <h4>
-                                    <strong>{post.title}</strong>
-                                </h4>
-                                <p className="text-muted" id="myText">
-                                    {post.content}
-                                </p>
-                            </div>
-                        </div>
-                        {/*Section: News of the day*/}
-                    </div>
-                ))}
-                    {/* posts end */}
-                </div>
-            </div>
-            {/* Team End */}
-            {/* Team End */}
-            {/* Team Start */}
-            {/* Team End */}
-            <Footer />
-            {/* Back to Top */}
-            <a href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top">
-                <i className="bi bi-arrow-up"></i>
-            </a>
-            <SiteScripts extra={BLOG_SCRIPTS} />
-        </>
-    )
+    const response = await getFromApi("/blogs", null)
+    const posts = Array.isArray(response) ? response : null
+    return <><main>
+        <PageIntro eyebrow="Our Journal" title="Stories from" accent="the ground up." description="Notes from our projects, ideas for a greener way of life, and moments from the Mud Beavers community." />
+        <section className="mb-page-section mb-journal-section"><div className="mb-container"><div className="mb-journal-heading"><p className="mb-section-eyebrow">BLOGS & NEWS</p><span>{posts ? `${posts.length} ${posts.length === 1 ? "story" : "stories"} to explore` : "OUR LATEST UPDATES"}</span></div>
+            {posts?.length ? <div className="mb-journal-list">{posts.map((post, index) => {
+                const date = post.created_at ? new Date(post.created_at) : null
+                const validDate = date && !Number.isNaN(date.getTime())
+                return <article className="mb-journal-card" key={post.id}><BlogGallery images={post.image} title={post.title} /><div className="mb-journal-card__body"><div className="mb-journal-card__meta"><span>FROM THE JOURNAL / {String(index + 1).padStart(2, "0")}</span>{validDate && <time dateTime={date.toISOString()}>{date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Kolkata" })}</time>}</div><h2><a href={blogPath(post)}>{post.title}</a></h2><p className="mb-journal-card__excerpt">{post.content.replace(/\s+/g, " ").slice(0, 260)}{post.content.length > 260 ? "…" : ""}</p><a className="mb-journal-card__read" href={blogPath(post)}>Read the story <i className="bi bi-arrow-up-right" aria-hidden="true"></i></a></div></article>
+            })}</div> : <div className="mb-journal-empty"><i className="fas fa-seedling" aria-hidden="true"></i><h2>{posts ? "Good stories take time to grow." : "Our journal is taking a little pause."}</h2><p>{posts ? "Our latest project stories and updates will appear here. In the meantime, follow along with our community." : "We couldn’t load our stories right now. Please try again shortly."}</p>{posts ? <a className="mb-btn mb-btn--primary" href="https://www.instagram.com/mudbeaver.sikkim/">Follow our journey <i className="bi bi-arrow-up-right" aria-hidden="true"></i></a> : <a className="mb-btn mb-btn--primary" href="/blog">Try again <i className="bi bi-arrow-clockwise" aria-hidden="true"></i></a>}</div>}
+        </div></section>
+    </main><PageEnd /></>
 }

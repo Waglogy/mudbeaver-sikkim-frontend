@@ -1,154 +1,36 @@
-import Footer from "@/components/Footer"
+import PageIntro from "@/components/PageIntro"
+import PageEnd from "@/components/PageEnd"
 import ApiForm from "@/components/ApiForm"
-import SiteScripts from "@/components/SiteScripts"
-
-export const metadata = {
-    title: "Internship-MudBeaverSikkim",
+import { getFromApi } from "@/lib/api"
+export const metadata = { title: "Training & Internship | Mud Beavers Sikkim" }
+// Open/closed is switched from the admin workspace, so render on every request
+export const dynamic = "force-dynamic"
+const LEARNING = [
+    ["Earth as a material", "An introduction to modern earth buildings, earth materials engineering, and construction."],
+    ["Methods that matter", "Explore earth-building technologies, construction techniques, and modern earth structural engineering."],
+    ["Learning from practice", "Discover international case studies and applications of modern earth construction."],
+    ["The bigger picture", "Study the techno-economic and environmental assessment of stabilised rammed earth (SRE) and insulated rammed earth (SIREWALL) buildings."],
+]
+const FIELDS = [
+    ["name", "Full name", "text", "Your full name", "name"],
+    ["date_of_birth", "Date of birth", "date", "", "bday"],
+    ["email", "Email address", "email", "you@example.com", "email"],
+    ["phone", "Phone number", "tel", "Your phone number", "tel"],
+    ["address", "Street address", "text", "Your address", "street-address"],
+    ["city", "City / town", "text", "Your city", "address-level2"],
+    ["region", "Region / state", "text", "Your region", "address-level1"],
+    ["zip_code", "Postal code", "text", "737121", "postal-code"],
+]
+// Shown in place of the application when an admin has closed internships
+function InternshipClosed() {
+    return <section id="apply" className="mb-page-section mb-page-section--soft"><div className="mb-container"><div className="mb-intern-closed"><img className="mb-intern-closed__beaver" src="/img/beaver/beaver-builder.webp" alt="" width="144" height="240" /><p className="mb-section-eyebrow">TRAINING CUM INTERNSHIP</p><h2>No internship at the moment.</h2><p>Applications for our training cum internship are currently closed. New batches open from time to time, so check back soon or get in touch to hear about the next one.</p><div className="mb-intern-closed__actions"><a className="mb-btn mb-btn--primary" href="/contact">Ask about the next batch <i className="bi bi-arrow-up-right" aria-hidden="true"></i></a><a className="mb-intern-closed__link" href="https://www.instagram.com/mudbeaver.sikkim/" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram" aria-hidden="true"></i> Follow for updates</a></div></div></div></section>
 }
 
-export default function InternshipPage() {
-    return (
-        <>
-            {/* Loaded only on this page, after style.css, as in the original */}
-            <link rel="stylesheet" href="/css/style2.css" precedence="default" />
-            {/* Page Header Start */}
-            <div className="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
-                <div className="container text-center py-5">
-                    <h1 className="display-4 text-white animated slideInDown mb-4">Internship</h1>
-                    <nav aria-label="breadcrumb animated slideInDown">
-                        <ol className="breadcrumb justify-content-center mb-0">
-                            <li className="breadcrumb-item">
-                                <a className="text-white" href="/">Home</a>
-                            </li>
-                            <li className="breadcrumb-item">
-                                <a className="text-white" href="#">Pages</a>
-                            </li>
-                            <li className="breadcrumb-item text-primary active" aria-current="page">Internship</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-            {/* Page Header End */}
-            <div className="demo-page">
-                <div className="demo-page-navigation">
-                    <nav>
-                        <div className="container-xxl py-5">
-                            <div className="container">
-                                <div className="row g-5">
-                                    <div className="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                                        <div className="border-start border-5 border-primary ps-4 mb-5">
-                                            <h6 className="text-body text-uppercase mb-2">Internship</h6>
-                                            <h1>Offering Internship Opportunities starting from ₹5,000</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-                <main className="demo-page-content">
-                    <section>
-                        <div className="href-target" id="input-types"></div>
-                        <h1>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-align-justify">
-                                <line x1="21" y1="10" x2="3" y2="10" />
-                                <line x1="21" y1="6" x2="3" y2="6" />
-                                <line x1="21" y1="14" x2="3" y2="14" />
-                                <line x1="21" y1="18" x2="3" y2="18" />
-                            </svg>
-                            {" "}
-                            Internship Form
-                        </h1>
-                        <p>
-                            Mud Beaver Sikkim presents Summer Training cum Internship Introduction to modern
-                            earth buildings Earth materials engineering and earth construction Earth building
-                            technologies and earth construction techniques Modern earth structural engineering
-                            Application of modern earth construction: international case studies Additional:
-                            Techno-economic analysis and environmental assessment of stabilised rammed earth
-                            (SRE) building construction Techno-economic analysis and environmental assessment
-                            of stabilized insulated rammed earth (SIREWALL) building.
-                        </p>
-                        <ApiForm id="internship-form" action="/internship" encType="multipart/form-data" method="post">
-                            <div className="nice-form-group">
-                                <label>Name</label>
-                                {" "}
-                                <input type="text" placeholder="Your name" defaultValue="" name="name" required />
-                            </div>
-                            <div className="nice-form-group">
-                                <label>Date of Birth</label>
-                                {" "}
-                                <input type="date" name="date_of_birth" />
-                            </div>
-                            <div className="nice-form-group">
-                                <label>Email</label>
-                                {" "}
-                                <input type="email" placeholder="Your email" name="email" required />
-                            </div>
-                            <div className="nice-form-group">
-                                <label>Phone Number</label>
-                                {" "}
-                                <input type="tel" placeholder="Your phone number" name="phone" required />
-                            </div>
-                            <div className="nice-form-group">
-                                <label>Address</label>
-                                {" "}
-                                <input type="text" placeholder="Chisopani sikkim" name="address" required />
-                            </div>
-                            <div className="nice-form-group">
-                                <label>City</label>
-                                {" "}
-                                <input type="text" placeholder="Jorthang" name="city" required />
-                            </div>
-                            <div className="nice-form-group">
-                                <label>Region</label>
-                                {" "}
-                                <input type="text" placeholder="East" name="region" required />
-                            </div>
-                            <div className="nice-form-group">
-                                <label>Zip Code</label>
-                                {" "}
-                                <input type="text" placeholder="737121" name="zip_code" required />
-                            </div>
-                            <label>Institution</label>
-                            {" "}
-                            <select name="institution" required>
-                                <option>Select Institution</option>
-                                <option>S.I.S.T (Sikkim Institute Of Science and Technology)</option>
-                                <option>C.C.C.T (Center For Computers and Communication Technology)</option>
-                            </select>
-                        </ApiForm>
-                    </section>
-                </main>
-            </div>
-            <center>
-                <br />
-                <br />
-                <span>
-                    Amount To Pay
-                    <h1>₹5,000</h1>
-                </span>
-            </center>
-            <div className="nice-form-group">
-                <img src="/img/internship_qr.jpg" className="img-fluid" alt="QR CODE" sizes="" srcSet="" />
-            </div>
-            <div className="nice-form-group">
-                <label>Upload a screenshot of payment</label>
-                {" "}
-                <input type="file" name="image" accept=".png, .jpeg" required form="internship-form" />
-            </div>
-            <div className="col-12">
-                <button className="btn btn-primary w-100 py-3" type="submit" style={{ backgroundColor: "#964B00" }} form="internship-form">
-                    Submit
-                </button>
-            </div>
-            {/* Footer Start */}
-            <Footer />
-            {/* Footer End */}
-            {/* Back to Top */}
-            <a href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top" style={{ backgroundColor: "#964B00" }}>
-                <i className="bi bi-arrow-up"></i>
-            </a>
-            <SiteScripts />
-        </>
-    )
-}
+export default async function InternshipPage() {
+    // If the status can't be read, show the closed notice rather than a form that may fail
+    const { open } = await getFromApi("/settings/internship", { open: false })
+    return <><main>
+    <PageIntro eyebrow="Internship" title="Get your hands into" accent="a greener future." description="Explore the science, craft, and possibilities of building with earth through our summer training and internship programme." image="/img/3.jpg" imageAlt="Natural construction details and earth-building materials" action="#apply" actionLabel={open ? "Explore the application" : "Check availability"} />
+    <section className="mb-page-section"><div className="mb-container"><div className="mb-page-section__head"><div><p className="mb-section-eyebrow">LEARN WITH MUD BEAVERS</p><h2>Build your understanding.<br /><span>Find your direction.</span></h2></div><p>A closer look at natural building and sustainability, connecting materials, methods, and the world around us.</p></div><div className="mb-learning-grid">{LEARNING.map(([title, text], index) => <article key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
+    {open ?     <section id="apply" className="mb-page-section mb-page-section--soft"><div className="mb-container mb-intern-layout"><aside className="mb-intern-aside"><p className="mb-section-eyebrow">TAKE THE NEXT STEP</p><h2>Your next chapter<br />starts here.</h2><p>Complete your details and upload your payment screenshot to submit your application.</p><ol><li><span>01</span>Tell us about yourself</li><li><span>02</span>Add your institution</li><li><span>03</span>Upload payment confirmation</li></ol><a href="/contact">Have a question? Talk to us <i className="bi bi-arrow-up-right" aria-hidden="true"></i></a></aside><div className="mb-form-card mb-intern-form"><p className="mb-form-eyebrow">TRAINING CUM INTERNSHIP</p><h3>A little about you.</h3><p>All fields are required.</p><ApiForm action="/internship" encType="multipart/form-data" className="mb-inquiry"><fieldset><legend><span>01</span> Personal details</legend><div className="mb-inquiry__grid">{FIELDS.map(([name, label, type, placeholder, autoComplete]) => <label key={name} htmlFor={`intern-${name}`}>{label}<input id={`intern-${name}`} name={name} type={type} placeholder={placeholder} autoComplete={autoComplete} required maxLength={type === "date" ? undefined : 254} pattern={name === "phone" ? "[0-9]{7,15}" : name === "zip_code" ? "[0-9]{4,10}" : undefined} title={name === "phone" ? "Enter 7 to 15 digits, without spaces or symbols." : name === "zip_code" ? "Enter a numeric postal code." : undefined} /></label>)}</div></fieldset><fieldset><legend><span>02</span> Your institution</legend><label htmlFor="intern-institution">Institution<select id="intern-institution" name="institution" defaultValue="" required><option value="" disabled>Select your institution</option><option>S.I.S.T (Sikkim Institute Of Science and Technology)</option><option>C.C.C.T (Center For Computers and Communication Technology)</option></select></label></fieldset><fieldset><legend><span>03</span> Payment confirmation</legend><div className="mb-intern-payment"><div><p>Training fee</p><strong>₹5,000</strong><p>Scan the QR code with your payment app, then attach a screenshot of your payment.</p></div><img src="/img/internship_qr.jpg" alt="Payment QR code for the internship training fee" loading="lazy" /></div><label htmlFor="intern-payment">Payment screenshot<input id="intern-payment" type="file" name="image" accept="image/png,image/jpeg" required /><small>Upload a PNG or JPG screenshot.</small></label></fieldset><button className="mb-btn mb-btn--primary" type="submit">Submit application <i className="bi bi-arrow-up-right" aria-hidden="true"></i></button><p className="mb-form-note">After submission, our team will get in touch about your batch.</p></ApiForm></div></div></section> : <InternshipClosed />}
+</main><PageEnd /></> }
