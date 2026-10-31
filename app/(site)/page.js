@@ -25,11 +25,15 @@ export default function HomePage() {
             <About />
             <Services />
             <WhyChooseUs />
-            <Appointment />
             <HomeTeam />
+            <Appointment />
             <Footer />
             {/* Back to Top */}
-            <a href="#" className="btn btn-lg btn-primary btn-lg-square back-to-top" style={{ backgroundColor: "#964B00", borderColor: "#964B00" }}>
+            <a
+                href="#"
+                className="btn btn-lg btn-primary btn-lg-square back-to-top"
+                style={{ backgroundColor: "#964B00", borderColor: "#964B00" }}
+            >
                 <i className="bi bi-arrow-up"></i>
             </a>
             <SiteScripts />

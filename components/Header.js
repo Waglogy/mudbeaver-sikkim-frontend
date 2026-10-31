@@ -131,12 +131,12 @@ export default function Header() {
                                 </a>
                             </li>
                             <li>
-                                <a href="mailto:info@mudbeaversikkim.in">
+                                <a href="mailto:mudbeaversikkim@gmail.com">
                                     <i
                                         className="bi bi-envelope"
                                         aria-hidden="true"
                                     ></i>
-                                    info@mudbeaversikkim.in
+                                    mudbeaversikkim@gmail.com
                                 </a>
                             </li>
                         </ul>
@@ -260,10 +260,10 @@ export default function Header() {
                                 +91 89272 73545
                             </a>
                             <a
-                                href="mailto:info@mudbeaversikkim.in"
+                                href="mailto:mudbeaversikkim@gmail.com"
                                 tabIndex={menuOpen ? undefined : -1}
                             >
-                                info@mudbeaversikkim.in
+                                mudbeaversikkim@gmail.com
                             </a>
                         </p>
                     </div>

@@ -3657,7 +3657,7 @@ html.mb-modal-lock {
 .mb-appointment__message { grid-column:1/-1; }
 .mb-appointment__submit { width:100%; justify-content:space-between; border:0; margin-top:1.5rem; cursor:pointer; }
 .mb-appointment__hint { text-align:center; margin:.9rem 0 0; font-size:.76rem; color:var(--mb-ink-soft); line-height:1.6; }
-.mb-home-team { padding:var(--mb-section-y) 0; background:var(--mb-cream); }
+.mb-home-team { padding:var(--mb-section-y) 0; background:#fff; }
 .mb-home-team__head { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(2rem,5vw,5rem); align-items:end; margin-bottom:3rem; }
 .mb-home-team h2 { color:var(--mb-ink); margin:0; }
 .mb-home-team h2 span { color:var(--mb-earth); }
@@ -4152,4 +4152,62 @@ form[aria-busy=true] button[type=submit]{opacity:.6;cursor:wait}
     .mb-404__chips {
         display: none;
     }
+}
+
+/*** Mobile polish: readable labels, comfortable tap targets, no oversized images ***/
+
+/* Breadcrumb links: bigger tap area without changing how they look */
+.mb-page-crumb a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 0.25rem;
+    margin: 0 -0.25rem;
+}
+
+/* 404 "Contact us" link */
+.mb-404__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.5rem;
+}
+
+/* Hero slide bars: taller invisible hit area, same thin line */
+.mb-hero__bar {
+    height: 36px;
+}
+
+@media (max-width: 991.98px) {
+    /* Small uppercase labels: nothing below 12px on phones and tablets */
+    .mb-page-intro__photo figcaption,
+    .mb-purpose-grid article > span,
+    .mb-value-label,
+    .mb-appointment__kicker,
+    .mb-journal-card__meta,
+    .mb-contact-details small,
+    .mb-beaver-bubble__tag,
+    .mb-req__tile figcaption {
+        font-size: 0.75rem;
+    }
+
+    .mb-form-eyebrow {
+        font-size: 0.75rem !important;
+    }
+
+    .mb-footer__brand > a span {
+        font-size: 0.72rem;
+    }
+
+    /* Old-template images on the Techniques page: fit the screen, keep proportions */
+    .container-xxl img:not(.position-absolute) {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Team now sits before Appointment: keep a clear edge between the dark
+   appointment band and the dark footer that follows it */
+.mb-appointment {
+    border-bottom: 1px solid rgba(243, 201, 154, 0.16);
 }
