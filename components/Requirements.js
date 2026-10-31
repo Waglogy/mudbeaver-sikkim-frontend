@@ -17,7 +17,7 @@ const ASKS = [
 // Editorial photo collage: position and size (%), tilt, stacking order, shape and caption
 const PHOTOS = [
     {
-        src: "/img/3.jpg",
+        src: "/img/3.webp",
         caption: "Earthen home",
         x: 10,
         y: 6,
@@ -70,9 +70,10 @@ export default function Requirements() {
             <div className="mb-container mb-req__grid">
                 <div className="mb-req__intro">
                     <span className="mb-req__bar" aria-hidden="true"></span>
-                    <h1 className="mb-req__title">
-                        LET'S BE SPECIFIC ABOUT YOUR REQUIREMENTS
-                    </h1>
+                    <p className="mb-section-eyebrow">Plan your project</p>
+                    <h2 className="mb-req__title">
+                        Let&apos;s be specific about your requirements.
+                    </h2>
                     <p className="mb-req__lead">
                         To get started with your project planning, fill out this
                         quick form. After you submit your specific requirements,

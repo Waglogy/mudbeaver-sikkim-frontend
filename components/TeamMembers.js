@@ -24,7 +24,7 @@ export default function TeamMembers({ featured = false }) {
     if (!members.length) return <p className="mb-team-status">{featured ? "Meet the people behind our work on our team page." : "Our team profiles will be here soon."}</p>
     return <div className="mb-home-team__grid">{members.map((person, index) => (
         <article className="mb-person" key={person.id}>
-            <div className="mb-person__portrait"><img src={person.image_url} alt={person.name} loading="lazy" /><span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span></div>
+            <div className="mb-person__portrait"><img src={person.image_url} alt={person.name} loading="lazy" /></div>
             <div className="mb-person__info"><h3>{person.name}</h3><p>{person.role}</p></div>
             {!featured && person.bio && <p className="mb-person__bio">{person.bio.replace(/\n[\t \r]*\n+/g, "\n").trim()}</p>}
         </article>

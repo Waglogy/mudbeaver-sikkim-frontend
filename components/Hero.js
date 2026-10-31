@@ -6,7 +6,7 @@ import Beaver from "@/components/Beaver"
 // Slide content is unchanged from the original home page carousel
 const SLIDES = [
     {
-        image: "/img/23.png",
+        image: "/img/23.webp",
         position: "68% center",
         title: "Building a Greener Tomorrow: Mud Beaver Sikkim's Earth-Centric Approach",
         tags: [
@@ -16,7 +16,7 @@ const SLIDES = [
         ],
     },
     {
-        image: "/img/carousel-1.jpg",
+        image: "/img/carousel-1.webp",
         position: "center 40%",
         title: "Discover the Beauty of Earth at Mud Beaver Sikkim - Where Tradition Meets Innovation.",
         tags: [
@@ -36,7 +36,11 @@ export default function Hero() {
     const go = (index) => setActive((index + SLIDES.length) % SLIDES.length)
 
     return (
-        <section className="mb-hero" aria-roledescription="carousel" aria-label="Mud Beaver Sikkim">
+        <section
+            className="mb-hero"
+            aria-roledescription="carousel"
+            aria-label="Mud Beaver Sikkim"
+        >
             <div className="mb-hero__media">
                 {SLIDES.map(({ image, position }, index) => (
                     <div
@@ -57,26 +61,41 @@ export default function Hero() {
 
             <div className="mb-container mb-hero__inner">
                 <div className="mb-hero__content" key={active}>
-                    <h2 className="mb-hero__title mb-reveal" style={{ "--d": 0 }}>
+                    <h1
+                        className="mb-hero__title mb-reveal"
+                        style={{ "--d": 0 }}
+                    >
                         {slide.title}
-                    </h2>
-                    <ul className="mb-hero__tags mb-reveal" style={{ "--d": 1 }}>
+                    </h1>
+                    <ul
+                        className="mb-hero__tags mb-reveal"
+                        style={{ "--d": 1 }}
+                    >
                         {slide.tags.map(({ label, icon }) => (
                             <li key={label}>
-                                <span className="mb-hero__tag-icon" aria-hidden="true">
+                                <span
+                                    className="mb-hero__tag-icon"
+                                    aria-hidden="true"
+                                >
                                     <i className={`fas ${icon}`}></i>
                                 </span>
                                 {label}
                             </li>
                         ))}
                     </ul>
-                    <div className="mb-hero__actions mb-reveal" style={{ "--d": 2 }}>
+                    <div
+                        className="mb-hero__actions mb-reveal"
+                        style={{ "--d": 2 }}
+                    >
                         <a
                             href="/mudbeaversikkim_brochure.pdf"
                             download="mudbeaversikkim_brochure"
                             className="mb-btn mb-btn--primary"
                         >
-                            <i className="bi bi-download" aria-hidden="true"></i>
+                            <i
+                                className="bi bi-download"
+                                aria-hidden="true"
+                            ></i>
                             Download Brochure
                         </a>
                     </div>
@@ -86,7 +105,8 @@ export default function Hero() {
                     <Beaver />
                     <div className="mb-hero__controls">
                         <span className="mb-hero__counter" aria-hidden="true">
-                            <strong>{pad(active + 1)}</strong> / {pad(SLIDES.length)}
+                            <strong>{pad(active + 1)}</strong> /{" "}
+                            {pad(SLIDES.length)}
                         </span>
                         <div className="mb-hero__progress">
                             {SLIDES.map((item, index) => (
@@ -97,22 +117,42 @@ export default function Hero() {
                                         index < active ? " is-done" : ""
                                     }`}
                                     aria-label={`Show slide ${index + 1}`}
-                                    aria-current={index === active ? "true" : undefined}
+                                    aria-current={
+                                        index === active ? "true" : undefined
+                                    }
                                     onClick={() => go(index)}
                                 >
                                     <span
                                         className="mb-hero__fill"
-                                        onAnimationEnd={index === active ? () => go(active + 1) : undefined}
+                                        onAnimationEnd={
+                                            index === active
+                                                ? () => go(active + 1)
+                                                : undefined
+                                        }
                                     ></span>
                                 </button>
                             ))}
                         </div>
                         <div className="mb-hero__arrows">
-                            <button type="button" aria-label="Previous" onClick={() => go(active - 1)}>
-                                <i className="bi bi-chevron-left" aria-hidden="true"></i>
+                            <button
+                                type="button"
+                                aria-label="Previous"
+                                onClick={() => go(active - 1)}
+                            >
+                                <i
+                                    className="bi bi-chevron-left"
+                                    aria-hidden="true"
+                                ></i>
                             </button>
-                            <button type="button" aria-label="Next" onClick={() => go(active + 1)}>
-                                <i className="bi bi-chevron-right" aria-hidden="true"></i>
+                            <button
+                                type="button"
+                                aria-label="Next"
+                                onClick={() => go(active + 1)}
+                            >
+                                <i
+                                    className="bi bi-chevron-right"
+                                    aria-hidden="true"
+                                ></i>
                             </button>
                         </div>
                     </div>

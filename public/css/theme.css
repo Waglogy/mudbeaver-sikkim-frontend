@@ -1,6 +1,7 @@
 /********** Mud Beaver Sikkim — modern theme (header + hero) **********/
 
 :root {
+    --mb-section-y: clamp(5rem, 9vw, 7.5rem);
     --mb-earth: #964b00;
     --mb-earth-hover: #ad5c0f;
     --mb-clay: #d48a4a;
@@ -1375,9 +1376,9 @@ html.mb-scroll-lock {
 .mb-req__title {
     margin: 0 0 1.25rem;
     font-family: var(--mb-sans);
-    font-size: clamp(1.9rem, 3.4vw, 3rem);
+    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
     font-weight: 700;
-    line-height: 1.12;
+    line-height: 1.08;
     letter-spacing: -0.01em;
     color: var(--mb-ink);
 }
@@ -1894,7 +1895,7 @@ textarea.mb-input {
 /*** About Us: The Enterprise + "Why Mud Beaver Sikkim" story (components/About.js) ***/
 .mb-about {
     position: relative;
-    padding: clamp(5rem, 9vw, 8rem) 0;
+    padding: var(--mb-section-y) 0;
     font-family: var(--mb-body);
     color: var(--mb-ink);
     background: #fff;
@@ -2052,26 +2053,7 @@ textarea.mb-input {
     transform: none;
 }
 
-.mb-about__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin: 0 0 1rem;
-    font-family: var(--mb-sans);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--mb-earth);
-}
 
-.mb-about__eyebrow::before {
-    content: "";
-    width: 36px;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--mb-earth);
-}
 
 .mb-about__title {
     margin: 0 0 1.5rem;
@@ -2497,7 +2479,7 @@ textarea.mb-input {
 /*** Home services: expanding photo panels (components/Services.js) ***/
 .mb-svc {
     position: relative;
-    padding: clamp(5rem, 9vw, 7.5rem) 0;
+    padding: var(--mb-section-y) 0;
     font-family: var(--mb-body);
     color: var(--mb-ink);
     background:
@@ -2523,29 +2505,26 @@ textarea.mb-input {
 .mb-svc__head {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 1.5rem;
     margin-bottom: 2.5rem;
 }
 
-.mb-svc__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin: 0;
-    font-family: var(--mb-sans);
-    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
-    font-weight: 700;
-    color: var(--mb-ink);
+
+
+.mb-svc__head .mb-section-eyebrow {
+    margin-bottom: 0.75rem;
 }
 
-.mb-svc__eyebrow::before {
-    content: "";
-    width: 44px;
-    height: 4px;
-    border-radius: 4px;
-    background: linear-gradient(90deg, var(--mb-earth), var(--mb-clay));
+.mb-svc__title-main {
+    margin: 0;
+    font-family: var(--mb-sans);
+    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--mb-ink);
 }
 
 .mb-svc__all {
@@ -2658,18 +2637,6 @@ textarea.mb-input {
     padding: 1.75rem;
 }
 
-.mb-svc__num {
-    position: absolute;
-    z-index: 1;
-    left: 1.5rem;
-    top: 1.25rem;
-    font-family: var(--mb-sans);
-    font-size: clamp(3.5rem, 6vw, 5.5rem);
-    font-weight: 700;
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(243, 201, 154, 0.85);
-}
 
 .mb-svc__icon {
     display: block;
@@ -2790,7 +2757,7 @@ textarea.mb-input {
 /*** Why Choose Us (components/WhyChooseUs.js) ***/
 .mb-why {
     position: relative;
-    padding: clamp(5rem, 9vw, 7.5rem) 0;
+    padding: var(--mb-section-y) 0;
     font-family: var(--mb-body);
     color: var(--mb-ink);
     background:
@@ -2828,26 +2795,7 @@ textarea.mb-input {
     transform: none;
 }
 
-.mb-why__eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin: 0 0 1rem;
-    font-family: var(--mb-sans);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--mb-earth);
-}
 
-.mb-why__eyebrow::before {
-    content: "";
-    width: 36px;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--mb-earth);
-}
 
 .mb-why__title {
     max-width: 16ch;
@@ -2978,7 +2926,6 @@ textarea.mb-input {
 .mb-why__card-top {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
     margin-bottom: 1.5rem;
 }
 
@@ -2993,14 +2940,6 @@ textarea.mb-input {
     transform: translateY(-3px) rotate(-6deg);
 }
 
-.mb-why__num {
-    font-family: var(--mb-sans);
-    font-size: 2.2rem;
-    font-weight: 700;
-    line-height: 1;
-    color: transparent;
-    -webkit-text-stroke: 1.2px rgba(150, 75, 0, 0.35);
-}
 
 .mb-why__card h3 {
     margin: 0 0 0.75rem;
@@ -3655,23 +3594,45 @@ html.mb-modal-lock {
     }
 }
 
-/*** Back to top ***/
+/*** Back to top (shown by components/SiteScripts.js) ***/
 .back-to-top.btn-lg-square {
-    display: none;
+    display: flex;
     border-radius: 50%;
     box-shadow: 0 12px 28px -12px rgba(150, 75, 0, 0.8);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0s linear 0.3s;
 }
 
-/* main.js fades it in with an inline display; keep the icon centred */
-.back-to-top.btn-lg-square[style*="display: inline"],
-.back-to-top.btn-lg-square[style*="display: block"] {
-    display: flex !important;
+.back-to-top.btn-lg-square.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        visibility 0s;
+}
+
+/* Smaller and tucked into the corner on phones so it covers less content */
+@media (max-width: 575.98px) {
+    .back-to-top.btn-lg-square {
+        right: 14px;
+        bottom: 14px;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
 }
 
 /*** Appointment, home team, and footer — shared earth palette ***/
 .mb-section-eyebrow { display:flex; align-items:center; gap:.75rem; margin:0 0 1.25rem; font:700 .78rem var(--mb-sans); letter-spacing:.2em; text-transform:uppercase; color:var(--mb-earth); }
 .mb-section-eyebrow::before { content:""; width:36px; height:2px; background:currentColor; }
-.mb-appointment { padding:clamp(4rem,8vw,7rem) 0; background:var(--mb-ink); color:var(--mb-cream); position:relative; overflow:hidden; }
+.mb-appointment { padding:var(--mb-section-y) 0; background:var(--mb-ink); color:var(--mb-cream); position:relative; overflow:hidden; }
 .mb-appointment::before { content:""; position:absolute; width:650px; height:650px; border:1px solid rgba(243,201,154,.1); border-radius:50%; left:-330px; bottom:-400px; box-shadow:0 0 0 65px rgba(243,201,154,.025),0 0 0 130px rgba(243,201,154,.025); pointer-events:none; }
 .mb-appointment__layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.12fr); gap:clamp(2.5rem,6vw,6rem); align-items:center; position:relative; }
 .mb-appointment .mb-section-eyebrow { color:var(--mb-sand); }
@@ -3696,7 +3657,7 @@ html.mb-modal-lock {
 .mb-appointment__message { grid-column:1/-1; }
 .mb-appointment__submit { width:100%; justify-content:space-between; border:0; margin-top:1.5rem; cursor:pointer; }
 .mb-appointment__hint { text-align:center; margin:.9rem 0 0; font-size:.76rem; color:var(--mb-ink-soft); line-height:1.6; }
-.mb-home-team { padding:clamp(4rem,8vw,7rem) 0; background:var(--mb-cream); }
+.mb-home-team { padding:var(--mb-section-y) 0; background:var(--mb-cream); }
 .mb-home-team__head { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:clamp(2rem,5vw,5rem); align-items:end; margin-bottom:3rem; }
 .mb-home-team h2 { color:var(--mb-ink); margin:0; }
 .mb-home-team h2 span { color:var(--mb-earth); }

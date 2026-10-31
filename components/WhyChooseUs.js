@@ -32,9 +32,9 @@ export default function WhyChooseUs() {
             <div className="mb-container">
                 <div className="mb-why__top">
                     <div className="mb-why__intro">
-                        <p className="mb-why__eyebrow">Why Choose Us!</p>
+                        <p className="mb-section-eyebrow">Why Choose Us!</p>
                         <h2 className="mb-why__title">
-                            Our Specialization And Features
+                            Our specialization and features.
                         </h2>
                         <p className="mb-why__lead">
                             We see architecture as a holistic endeavor. Our
@@ -44,7 +44,7 @@ export default function WhyChooseUs() {
                     </div>
                     <figure className="mb-why__photo">
                         <img
-                            src="/img/6.jpg"
+                            src="/img/6.webp"
                             alt="Traditional stone masonry tower framed by white flowers"
                             loading="lazy"
                         />
@@ -63,12 +63,6 @@ export default function WhyChooseUs() {
                                     className={`fas ${icon}`}
                                     aria-hidden="true"
                                 ></i>
-                                <span
-                                    className="mb-why__num"
-                                    aria-hidden="true"
-                                >
-                                    {String(index + 1).padStart(2, "0")}
-                                </span>
                             </div>
                             <h3>{title}</h3>
                             <p>{text}</p>

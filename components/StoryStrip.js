@@ -7,7 +7,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 
 const STORY = [
     {
-        src: "/img/w1.jpg",
+        src: "/img/w1.webp",
         alt: "Why do we call ourselves Mud Beaver Sikkim? First, let us talk about our mascots, the beavers.",
     },
     {

@@ -10,7 +10,6 @@ const STYLESHEETS = [
     "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css",
     // Libraries Stylesheet
     "/lib/animate/animate.min.css",
-    "/lib/owlcarousel/assets/owl.carousel.min.css",
     // Customized Bootstrap Stylesheet
     "/css/bootstrap.min.css",
     // Template Stylesheet

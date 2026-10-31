@@ -126,7 +126,7 @@ export default function RequirementsForm({ onDone, onClose }) {
             <aside className="mb-wizard__aside">
                 <span className="mb-wizard__bar" aria-hidden="true"></span>
                 <h2 id="mb-modal-title" className="mb-wizard__title">
-                    LET'S BE SPECIFIC ABOUT YOUR REQUIREMENTS
+                    Let&apos;s be specific about your requirements.
                 </h2>
                 <ol className="mb-wizard__steps">
                     {STEPS.map(({ title }, index) => (

@@ -24,7 +24,7 @@ const SERVICES = [
     {
         title: "SUSTAINABLE INTERIOR",
         text: "The structure that we build are of course a work of an art due a lot of enriching factors but what really matters at the end of the day is how ambient.",
-        image: "/img/st.jpg",
+        image: "/img/st.webp",
         icon: "fa-couch",
     },
 ]
@@ -35,7 +35,10 @@ export default function Services() {
             <RevealOnScroll target="#home-services" />
             <div className="mb-container">
                 <div className="mb-svc__head">
-                    <p className="mb-svc__eyebrow">Our Services</p>
+                    <div>
+                        <p className="mb-section-eyebrow">Our Services</p>
+                        <h2 className="mb-svc__title-main">What we do.</h2>
+                    </div>
                     <a className="mb-svc__all" href="/services">
                         View all services
                         <i className="bi bi-arrow-right" aria-hidden="true"></i>
@@ -50,9 +53,6 @@ export default function Services() {
                             style={{ "--i": index }}
                         >
                             <img src={image} alt="" loading="lazy" />
-                            <span className="mb-svc__num" aria-hidden="true">
-                                {String(index + 1).padStart(2, "0")}
-                            </span>
                             <div className="mb-svc__body">
                                 <span
                                     className="mb-svc__icon"

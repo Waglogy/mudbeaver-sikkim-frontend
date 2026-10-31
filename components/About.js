@@ -19,7 +19,7 @@ export default function About() {
                     <div className="mb-about__media">
                         <figure className="mb-about__photo">
                             <img
-                                src="/img/10.jpg"
+                                src="/img/10.webp"
                                 alt="Earthen arches and curved roof tiles at a Mud Beaver site"
                                 loading="lazy"
                             />
@@ -32,8 +32,8 @@ export default function About() {
                     </div>
 
                     <div className="mb-about__text">
-                        <p className="mb-about__eyebrow">About Us</p>
-                        <h2 className="mb-about__title">THE ENTERPRISE</h2>
+                        <p className="mb-section-eyebrow">About Us</p>
+                        <h2 className="mb-about__title">The enterprise.</h2>
                         <p className="mb-about__lead">
                             Mud Beaver Sikkim is a socio-sustainable
                             construction enterprise focussing on specialisation
