@@ -2,6 +2,8 @@ const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    // Self-contained server build for the Docker image
+    output: "standalone",
     // Hide the Next.js dev-mode indicator badge (bottom-left corner)
     devIndicators: false,
     // Forward browser form submissions (/api/*) to the Express backend

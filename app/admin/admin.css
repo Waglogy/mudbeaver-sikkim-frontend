@@ -35,6 +35,7 @@
 .mb-admin__app-shot{display:block;width:96px;height:120px;overflow:hidden;border-radius:10px;background:#efe6da}
 .mb-admin__app-shot img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
 .mb-admin__app-shot:hover img{transform:scale(1.05)}
+.mb-admin__app-pdf{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;height:100%;color:#8a3b1f;font-size:.75rem;font-weight:600;text-align:center}.mb-admin__app-pdf i{font-size:2rem}
 .mb-admin__app-top{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
 .mb-admin__app h3{margin:0;font-size:1.1rem}
 .mb-admin__app-meta{margin:.25rem 0 .9rem;font-size:.85rem}

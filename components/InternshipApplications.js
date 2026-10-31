@@ -152,13 +152,23 @@ export default function InternshipApplications({ onUnauthorized }) {
                                 href={item.screenshot}
                                 target="_blank"
                                 rel="noreferrer"
-                                title="Open payment screenshot"
+                                title="Open payment proof"
                             >
-                                <img
-                                    src={item.screenshot}
-                                    alt={`Payment screenshot from ${item.name}`}
-                                    loading="lazy"
-                                />
+                                {item.screenshot_type === "pdf" ? (
+                                    <span className="mb-admin__app-pdf">
+                                        <i
+                                            className="bi bi-file-earmark-pdf"
+                                            aria-hidden="true"
+                                        ></i>
+                                        PDF receipt
+                                    </span>
+                                ) : (
+                                    <img
+                                        src={item.screenshot}
+                                        alt={`Payment screenshot from ${item.name}`}
+                                        loading="lazy"
+                                    />
+                                )}
                             </a>
                             <div className="mb-admin__app-body">
                                 <div className="mb-admin__app-top">
