@@ -6,7 +6,7 @@ RUN npm ci
 FROM node:20-alpine AS builder
 WORKDIR /app
 # The /api proxy target is baked into the build by next.config.mjs rewrites
-ARG BACKEND_URL=http://mudbeaver-backend:4000
+ARG BACKEND_URL=https://api.mudbeaversikkim.in
 ARG SITE_URL=https://mudbeaversikkim.in
 ENV BACKEND_URL=$BACKEND_URL \
     SITE_URL=$SITE_URL \
@@ -17,7 +17,7 @@ RUN npm run build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
-ARG BACKEND_URL=http://mudbeaver-backend:4000
+ARG BACKEND_URL=https://api.mudbeaversikkim.in
 ARG SITE_URL=https://mudbeaversikkim.in
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \

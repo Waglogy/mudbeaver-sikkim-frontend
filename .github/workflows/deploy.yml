@@ -34,8 +34,8 @@ jobs:
           docker buildx build \
             --platform linux/arm64 \
             --tag mudbeaver-frontend:latest \
-            --build-arg BACKEND_URL=${{ secrets.BACKEND_URL || 'http://mudbeaver-backend:4000' }} \
-            --build-arg SITE_URL=${{ secrets.SITE_URL || 'https://mudbeaversikkim.in' }} \
+            --build-arg "BACKEND_URL=${{ secrets.BACKEND_URL || 'https://api.mudbeaversikkim.in' }}" \
+            --build-arg "SITE_URL=${{ secrets.SITE_URL || 'https://mudbeaversikkim.in' }}" \
             --output type=docker,dest=mudbeaver-frontend.tar \
             .
 
