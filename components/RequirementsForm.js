@@ -4,8 +4,9 @@ import { useRef, useState } from "react"
 import ApiForm from "@/components/ApiForm"
 import FileDrop from "@/components/FileDrop"
 
-// Project enquiry form as a 3-step guided wizard, with the animated beaver as a guide.
-// Field names, labels and hints are unchanged; shown inside RequirementsModal.
+// Project enquiry form as a step-by-step wizard, with the animated beaver as a guide.
+// Shown inside RequirementsModal. Sent as multipart so the optional drawings,
+// site photos and reference images upload with the other fields.
 
 const STEPS = [
     {
@@ -17,8 +18,73 @@ const STEPS = [
         intro: "Now the fun part — tell me about your project! 🏡",
     },
     {
+        title: "Photos & drawings",
+        intro: "Pictures help us a lot! Add any drawings or photos you have — all optional. 📸",
+    },
+    {
         title: "Final details",
         intro: "Almost done! Anything else I should know?",
+    },
+]
+
+// Optional uploads on the "Photos & drawings" step, each with example pictures
+const UPLOADS = [
+    {
+        id: "req-drawings",
+        name: "drawings",
+        label: "Architectural drawings",
+        icon: "fa-drafting-compass",
+        help: "Floor plans, elevations or hand sketches. PDF or photos.",
+        accept: ".pdf,image/jpeg,image/png,image/webp",
+        hint: "PDF, JPG, PNG or WebP · up to 5 files",
+        examples: [
+            [
+                "/img/examples/drawing-floor-plan.webp",
+                "Example: a house floor plan",
+            ],
+            [
+                "/img/examples/drawing-elevation.webp",
+                "Example: a house elevation drawing",
+            ],
+        ],
+    },
+    {
+        id: "req-site-photos",
+        name: "site_photos",
+        label: "Site photos",
+        icon: "fa-mountain",
+        help: "Your land from a few angles: slope, access road, views and surroundings.",
+        accept: "image/jpeg,image/png,image/webp",
+        hint: "JPG, PNG or WebP · up to 5 photos",
+        examples: [
+            [
+                "/img/examples/site-flat-plot.webp",
+                "Example: an open, flat plot",
+            ],
+            [
+                "/img/examples/site-sloped-land.webp",
+                "Example: sloped hillside land",
+            ],
+        ],
+    },
+    {
+        id: "req-references",
+        name: "references",
+        label: "Reference images",
+        icon: "fa-images",
+        help: "Homes, materials or styles you love: screenshots and saved pictures are fine.",
+        accept: "image/jpeg,image/png,image/webp",
+        hint: "JPG, PNG or WebP · up to 5 images",
+        examples: [
+            [
+                "/img/examples/reference-earth-house.webp",
+                "Example: an earth house being built",
+            ],
+            [
+                "/img/examples/reference-rammed-earth-wall.webp",
+                "Example: a rammed earth wall",
+            ],
+        ],
     },
 ]
 
@@ -35,7 +101,12 @@ const TIPS = {
     "req-budget": "A rough budget in ₹ — just the number — helps us plan.",
     "req-services":
         "Design, consultancy, construction — or the full turnkey job?",
-    "req-drawings": "Have architectural drawings? Attach them as a PDF.",
+    "req-drawings":
+        "Have floor plans or sketches? A PDF or a clear photo works. 📐",
+    "req-site-photos":
+        "Show me your land! A few angles help us plan the design. 🏞️",
+    "req-references":
+        "Seen a home you love? Share it so we know your style. ✨",
     "req-message": "Dreams, timelines, ideas — tell me everything! ✍️",
 }
 
@@ -205,6 +276,7 @@ export default function RequirementsForm({ onDone, onClose }) {
                     <ApiForm
                         action="/requirements"
                         method="post"
+                        encType="multipart/form-data"
                         className="mb-req__form"
                         onResult={onResult}
                         onKeyDown={onKeyDown}
@@ -387,25 +459,76 @@ export default function RequirementsForm({ onDone, onClose }) {
                             >
                                 {STEPS[2].title}
                             </legend>
-                            <div className="mb-req__fields">
-                                <div className="mb-field mb-field--wide">
-                                    <p
-                                        className="mb-field__label"
-                                        id="req-drawings-label"
+                            <div className="mb-req__uploads">
+                                {UPLOADS.map((upload) => (
+                                    <div
+                                        key={upload.id}
+                                        className="mb-field mb-upload-field"
                                     >
-                                        <i
-                                            className="fas fa-file-pdf"
-                                            aria-hidden="true"
-                                        ></i>
-                                        PLEASE ATTACH ARCHITECTURAL DRAWINGS FOR
-                                        THE PROJECT
-                                    </p>
-                                    <FileDrop
-                                        id="req-drawings"
-                                        accept=".pdf"
-                                        labelledBy="req-drawings-label"
-                                    />
-                                </div>
+                                        <p
+                                            className="mb-field__label"
+                                            id={`${upload.id}-label`}
+                                        >
+                                            <i
+                                                className={`fas ${upload.icon}`}
+                                                aria-hidden="true"
+                                            ></i>
+                                            {upload.label}
+                                            <span className="mb-upload-field__optional">
+                                                Optional
+                                            </span>
+                                        </p>
+                                        <p className="mb-upload-field__help">
+                                            {upload.help}
+                                        </p>
+                                        <div className="mb-upload-field__row">
+                                            <FileDrop
+                                                id={upload.id}
+                                                name={upload.name}
+                                                accept={upload.accept}
+                                                labelledBy={`${upload.id}-label`}
+                                                max={5}
+                                                title="Choose files"
+                                                hint={upload.hint}
+                                            />
+                                            <figure className="mb-upload-field__examples">
+                                                <div>
+                                                    {upload.examples.map(
+                                                        ([src, alt]) => (
+                                                            <img
+                                                                key={src}
+                                                                src={src}
+                                                                alt={alt}
+                                                                title={alt}
+                                                                width="480"
+                                                                height="360"
+                                                                loading="lazy"
+                                                            />
+                                                        ),
+                                                    )}
+                                                </div>
+                                                <figcaption>
+                                                    Examples
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </fieldset>
+
+                        <fieldset
+                            hidden={step !== 3}
+                            ref={(el) => (steps.current[3] = el)}
+                        >
+                            <legend
+                                className="mb-wizard__legend"
+                                tabIndex={-1}
+                                ref={(el) => (headings.current[3] = el)}
+                            >
+                                {STEPS[3].title}
+                            </legend>
+                            <div className="mb-req__fields">
                                 <Field
                                     id="req-message"
                                     label="GIVE DETAILED DESCRIPTION IN MESSAGE BOX"

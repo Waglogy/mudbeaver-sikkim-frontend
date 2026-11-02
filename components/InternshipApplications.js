@@ -22,6 +22,8 @@ export default function InternshipApplications({ onUnauthorized }) {
     const [status, setStatus] = useState("")
     const [error, setError] = useState("")
     const [saving, setSaving] = useState(null)
+    const [deleting, setDeleting] = useState(null)
+    const [message, setMessage] = useState("")
 
     const load = useCallback(
         async (query, filter) => {
@@ -74,6 +76,23 @@ export default function InternshipApplications({ onUnauthorized }) {
         }
     }
 
+    async function remove(item) {
+        setSaving(item.id)
+        setError("")
+        setMessage("")
+        try {
+            await request(`/internships/${item.id}`, { method: "DELETE" })
+            setItems((list) => list.filter((row) => row.id !== item.id))
+            setDeleting(null)
+            setMessage(`${item.name}'s application was deleted.`)
+        } catch (error) {
+            setError(error.message)
+            if (error.status === 401) onUnauthorized?.(error)
+        } finally {
+            setSaving(null)
+        }
+    }
+
     return (
         <section className="mb-admin__apps" aria-labelledby="apps-title">
             <div className="mb-admin__apps-head">
@@ -115,6 +134,11 @@ export default function InternshipApplications({ onUnauthorized }) {
                 </div>
             </div>
 
+            {message && (
+                <p className="mb-admin__success" role="status">
+                    {message}
+                </p>
+            )}
             {error && (
                 <p className="mb-admin__error" role="alert">
                     {error}{" "}
@@ -219,23 +243,72 @@ export default function InternshipApplications({ onUnauthorized }) {
                                     </div>
                                 </dl>
                             </div>
-                            <label className="mb-admin__app-status">
-                                Status
-                                <select
-                                    value={item.status}
-                                    disabled={saving === item.id}
-                                    onChange={(event) =>
-                                        changeStatus(item, event.target.value)
-                                    }
-                                >
-                                    {STATUSES.map(({ value, label }) => (
-                                        <option key={value} value={value}>
-                                            {label}
-                                        </option>
-                                    ))}
-                                </select>
-                                {saving === item.id && <small>Saving…</small>}
-                            </label>
+                            <div className="mb-admin__app-side">
+                                <label className="mb-admin__app-status">
+                                    Status
+                                    <select
+                                        value={item.status}
+                                        disabled={saving === item.id}
+                                        onChange={(event) =>
+                                            changeStatus(
+                                                item,
+                                                event.target.value,
+                                            )
+                                        }
+                                    >
+                                        {STATUSES.map(({ value, label }) => (
+                                            <option key={value} value={value}>
+                                                {label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {saving === item.id && (
+                                        <small>Saving…</small>
+                                    )}
+                                </label>
+                                <div className="mb-admin__app-delete">
+                                    {deleting === item.id ? (
+                                        <div
+                                            className="mb-admin__confirm"
+                                            role="group"
+                                            aria-label={`Confirm deletion of ${item.name}'s application`}
+                                        >
+                                            <p>
+                                                Delete this application and its
+                                                payment proof?
+                                            </p>
+                                            <button
+                                                disabled={saving === item.id}
+                                                className="mb-admin__danger"
+                                                onClick={() => remove(item)}
+                                            >
+                                                Yes, delete
+                                            </button>
+                                            <button
+                                                disabled={saving === item.id}
+                                                className="mb-admin__secondary"
+                                                onClick={() =>
+                                                    setDeleting(null)
+                                                }
+                                            >
+                                                Keep
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <button
+                                            className="mb-admin__delete"
+                                            disabled={saving === item.id}
+                                            onClick={() => setDeleting(item.id)}
+                                        >
+                                            Delete
+                                            <span className="mb-admin__sr">
+                                                {" "}
+                                                {item.name}&apos;s application
+                                            </span>
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
                         </article>
                     ))}
                 </div>

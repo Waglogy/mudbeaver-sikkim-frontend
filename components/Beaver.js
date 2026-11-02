@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 
 // Mud Beaver mascot: walks back and forth along the hero divider line, from just
-// past the Download Brochure button to the end of the line. Its speech bubble
+// past the Why Choose Us button to the end of the line. Its speech bubble
 // greets visitors, then shares short sustainability and beaver facts.
 // beaver.webp is the Canva animation converted to a transparent animated WebP.
 

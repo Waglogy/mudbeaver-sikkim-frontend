@@ -48,3 +48,35 @@
 .mb-admin__badge.is-contacted{background:#e7efdf;color:#36552c}
 .mb-admin label.mb-admin__app-status{min-width:150px;font-size:.75rem}
 @media(max-width:860px){.mb-admin__apps-head{flex-direction:column;align-items:stretch}.mb-admin__filters{flex-direction:column}.mb-admin__filters input{min-width:0}.mb-admin__app{grid-template-columns:72px minmax(0,1fr)}.mb-admin__app-shot{width:72px;height:90px}.mb-admin__app-status{grid-column:1/-1}.mb-admin__app dl{grid-template-columns:minmax(0,1fr)}}
+
+/* Internship applications: status and delete share the right-hand column */
+.mb-admin__app-side{display:grid;gap:1rem;justify-items:end}
+.mb-admin__app-delete .mb-admin__confirm{max-width:220px;text-align:right}
+.mb-admin__app-delete .mb-admin__confirm button{margin-left:.35rem;padding:.6rem .9rem;font-size:.75rem}
+@media(max-width:860px){.mb-admin__app-side{grid-column:1/-1;justify-items:start}.mb-admin__app-delete .mb-admin__confirm{text-align:left}.mb-admin__app-delete .mb-admin__confirm button{margin:0 .35rem 0 0}}
+
+/* Enquiries: one tab per website form */
+.mb-admin__forms{display:flex;flex-wrap:wrap;gap:.6rem}
+.mb-admin__forms button{display:inline-flex;align-items:center;gap:.6rem;background:#fff;color:#1c140d;border-color:#e3d9cb}
+.mb-admin__forms button:hover{background:#f3ece2}
+.mb-admin__forms button[aria-current=page]{background:#964b00;color:#fff;border-color:#964b00}
+.mb-admin__count{min-width:1.6rem;padding:.1rem .45rem;border-radius:999px;background:#f3ece2;color:#964b00;font-size:.72rem;text-align:center}
+.mb-admin__forms button[aria-current=page] .mb-admin__count{background:#ffffff33;color:#fff}
+.mb-admin__submission{display:grid;gap:1rem;padding:1.25rem 1.5rem;background:#fff;border:1px solid #e8ded0;border-left:4px solid #d48a4a;border-radius:18px}
+.mb-admin__submission .mb-admin__app-top{justify-content:space-between}
+.mb-admin__submission h3{margin:0;font-size:1.1rem}
+.mb-admin__submission .mb-admin__app-meta{margin:0}
+.mb-admin__submission dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem 1.5rem;margin:0}
+.mb-admin__submission dt,.mb-admin__label,.mb-admin__files>p{font-size:.68rem!important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9a8a77!important;margin:0}
+.mb-admin__submission dd{margin:.1rem 0 0;font-size:.9rem;overflow-wrap:anywhere}
+.mb-admin__message{padding:1rem;background:#faf6f0;border-radius:12px}
+.mb-admin__message p:last-child{margin:.35rem 0 0;color:#1c140d;white-space:pre-wrap;overflow-wrap:anywhere}
+.mb-admin__files ul{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;margin:.5rem 0 0;padding:0}
+.mb-admin__files a{display:block;width:96px;height:80px;overflow:hidden;border-radius:10px;background:#efe6da;border:1px solid #e3d9cb}
+.mb-admin__files img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.mb-admin__files a:hover img{transform:scale(1.05)}
+.mb-admin__submission>.mb-admin__actions{justify-content:flex-end}
+.mb-admin__submission .mb-admin__confirm{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:.5rem}
+.mb-admin__submission .mb-admin__confirm p{margin:0 .5rem 0 0}
+@media(max-width:860px){.mb-admin__submission dl{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.mb-admin__submission dl{grid-template-columns:minmax(0,1fr)}.mb-admin__submission .mb-admin__app-top{flex-direction:column;align-items:flex-start;gap:.25rem}.mb-admin__submission .mb-admin__confirm{justify-content:flex-start}}

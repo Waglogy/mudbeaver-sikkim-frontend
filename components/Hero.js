@@ -88,15 +88,14 @@ export default function Hero() {
                         style={{ "--d": 2 }}
                     >
                         <a
-                            href="/mudbeaversikkim_brochure.pdf"
-                            download="mudbeaversikkim_brochure"
+                            href="/why-choose-us"
                             className="mb-btn mb-btn--primary"
                         >
+                            Why Choose Us
                             <i
-                                className="bi bi-download"
+                                className="bi bi-arrow-up-right"
                                 aria-hidden="true"
                             ></i>
-                            Download Brochure
                         </a>
                     </div>
                 </div>

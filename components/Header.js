@@ -7,6 +7,7 @@ import { openRequirements } from "@/components/RequirementsModal"
 const NAV_LINKS = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About Us" },
+    { href: "/why-choose-us", label: "Why Choose Us" },
     { href: "/teams", label: "Our Team" },
     { href: "/services", label: "Services" },
     { href: "/internship", label: "Internship" },
