@@ -1,5 +1,6 @@
 import PageIntro from "@/components/PageIntro"
 import PageEnd from "@/components/PageEnd"
+import FactsReveal from "@/components/FactsReveal"
 
 // Content from the Mud Beaver brochure "Why Choose Us?" pages (spelling tidied)
 
@@ -197,18 +198,28 @@ export default function WhyChooseUsPage() {
                                     </div>
                                     {facts.length > 0 && (
                                         <aside className="mb-reason__facts" aria-label="Facts">
-                                            {facts.map((fact) => (
-                                                <div key={fact} className="mb-reason__fact">
+                                            {facts.map((fact, i) => (
+                                                <div key={fact} className="mb-reason__fact" style={{ "--i": i }}>
                                                     <span>Fact</span>
                                                     <p>{fact}</p>
                                                 </div>
                                             ))}
+                                            <img
+                                                className="mb-reason__beaver"
+                                                src="/img/beaver/beaver-talker.webp"
+                                                alt=""
+                                                width="216"
+                                                height="240"
+                                                loading="lazy"
+                                                decoding="async"
+                                            />
                                         </aside>
                                     )}
                                 </li>
                             ))}
                         </ol>
                     </div>
+                    <FactsReveal />
                 </section>
 
                 <section className="mb-page-section mb-page-section--dark">
