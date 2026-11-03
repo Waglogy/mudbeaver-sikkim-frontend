@@ -1478,12 +1478,12 @@ html.mb-scroll-lock {
     aspect-ratio: 4 / 5;
 }
 
-/* Dotted texture block and offset outline frame behind the main photo */
+/* Dotted texture between the columns and an offset outline frame behind the top-right photo */
 .mb-req__dots {
     position: absolute;
-    left: 0;
-    top: 26%;
-    width: 30%;
+    left: 38%;
+    top: 30%;
+    width: 24%;
     height: 34%;
     background-image: radial-gradient(rgba(150, 75, 0, 0.45) 1.4px, transparent 1.6px);
     background-size: 14px 14px;
@@ -1493,10 +1493,10 @@ html.mb-scroll-lock {
 
 .mb-req__outline {
     position: absolute;
-    left: 14%;
-    top: 0;
-    width: 60%;
-    height: 66%;
+    left: 55%;
+    top: 3%;
+    width: 48%;
+    height: 44%;
     border: 1.5px solid rgba(150, 75, 0, 0.45);
     border-radius: 22px;
     opacity: 0;
@@ -1543,12 +1543,12 @@ html.mb-scroll-lock {
     filter: saturate(1.05) contrast(1.05);
 }
 
-/* Main photo: revealed with an upward wipe */
+/* Photos: revealed one after another with an upward wipe */
 .mb-req__tile--main {
     border-radius: 22px;
     clip-path: inset(100% 0 0 0 round 22px);
     transition:
-        clip-path 1.3s cubic-bezier(0.77, 0, 0.18, 1) 0.15s,
+        clip-path 1.3s cubic-bezier(0.77, 0, 0.18, 1) calc(0.15s + var(--i, 0) * 0.2s),
         box-shadow 0.6s var(--mb-ease);
 }
 
@@ -1559,7 +1559,7 @@ html.mb-scroll-lock {
 .mb-req__tile--main img {
     transform: scale(1.15);
     transition:
-        transform 1.8s var(--mb-ease) 0.15s,
+        transform 1.8s var(--mb-ease) calc(0.15s + var(--i, 0) * 0.2s),
         filter 0.6s ease;
 }
 
@@ -1623,10 +1623,13 @@ html.mb-scroll-lock {
     border-radius: 999px;
 }
 
-/* Raised so the stone-house print never covers it */
+/* Sits just above the earth strata along the base */
 .mb-req__tile--main figcaption {
-    left: 16px;
-    bottom: 15%;
+    left: 12px;
+    right: 12px;
+    bottom: 18px;
+    width: max-content;
+    max-width: calc(100% - 24px);
 }
 
 /* Earth strata along the base of the main photo */

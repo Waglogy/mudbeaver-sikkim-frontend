@@ -14,52 +14,13 @@ const ASKS = [
     { label: "Reference Images", icon: "fa-images" },
 ]
 
-// Editorial photo collage: position and size (%), tilt, stacking order, shape and caption
+// Photo collage: four same-size photos, staggered over two columns (position and size in %;
+// focus is the part of a wide photo kept in the crop)
 const PHOTOS = [
-    {
-        src: "/img/3.webp",
-        caption: "Earthen home",
-        x: 10,
-        y: 6,
-        w: 60,
-        h: 66,
-        r: 0,
-        z: 2,
-        kind: "main",
-    },
-    {
-        src: "/img/22.jpg",
-        caption: "Bamboo dome",
-        x: 66,
-        y: 2,
-        w: 34,
-        h: 27,
-        r: 0,
-        z: 3,
-        kind: "round",
-    },
-    {
-        src: "/img/20.jpg",
-        caption: "Rammed earth",
-        x: 57,
-        y: 40,
-        w: 41,
-        h: 40,
-        r: 2.5,
-        z: 4,
-        kind: "print",
-    },
-    {
-        src: "/img/2.jpg",
-        caption: "Stone & timber",
-        x: 0,
-        y: 66,
-        w: 47,
-        h: 31,
-        r: -2,
-        z: 5,
-        kind: "print",
-    },
+    { src: "/img/3.webp", caption: "Cob house", x: 0, y: 0, w: 48, h: 44 },
+    { src: "/img/rammed-earth-house.webp", caption: "Rammed earth house", x: 52, y: 8, w: 48, h: 44 },
+    { src: "/img/2.jpg", caption: "Bhutia traditional house", x: 0, y: 48, w: 48, h: 44 },
+    { src: "/img/lepcha-house.jpg", caption: "Lepcha traditional house", x: 52, y: 56, w: 48, h: 44, focus: "35% 50%" },
 ]
 
 export default function Requirements() {
@@ -107,28 +68,22 @@ export default function Requirements() {
                 <div className="mb-req__collage">
                     <span className="mb-req__dots" aria-hidden="true"></span>
                     <span className="mb-req__outline" aria-hidden="true"></span>
-                    {PHOTOS.map(
-                        ({ src, caption, x, y, w, h, r, z, kind }, index) => (
-                            <figure
-                                key={src}
-                                className={`mb-req__tile mb-req__tile--${kind}`}
-                                style={{
-                                    "--i": index,
-                                    "--r": `${r}deg`,
-                                    left: `${x}%`,
-                                    top: `${y}%`,
-                                    width: `${w}%`,
-                                    height: `${h}%`,
-                                    zIndex: z,
-                                }}
-                            >
-                                <img src={src} alt={caption} loading="lazy" />
-                                {kind !== "round" && (
-                                    <figcaption>{caption}</figcaption>
-                                )}
-                            </figure>
-                        ),
-                    )}
+                    {PHOTOS.map(({ src, caption, x, y, w, h, focus }, index) => (
+                        <figure
+                            key={src}
+                            className="mb-req__tile mb-req__tile--main"
+                            style={{
+                                "--i": index,
+                                left: `${x}%`,
+                                top: `${y}%`,
+                                width: `${w}%`,
+                                height: `${h}%`,
+                            }}
+                        >
+                            <img src={src} alt={caption} loading="lazy" style={focus && { objectPosition: focus }} />
+                            <figcaption>{caption}</figcaption>
+                        </figure>
+                    ))}
                 </div>
             </div>
         </section>
