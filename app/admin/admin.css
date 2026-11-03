@@ -80,3 +80,4 @@
 .mb-admin__submission .mb-admin__confirm p{margin:0 .5rem 0 0}
 @media(max-width:860px){.mb-admin__submission dl{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.mb-admin__submission dl{grid-template-columns:minmax(0,1fr)}.mb-admin__submission .mb-admin__app-top{flex-direction:column;align-items:flex-start;gap:.25rem}.mb-admin__submission .mb-admin__confirm{justify-content:flex-start}}
+.mb-admin__member--sortable{cursor:grab}.mb-admin__member--sortable.is-dragging{opacity:.45;border-style:dashed}.mb-admin__order{display:flex;flex-direction:column;align-items:center;gap:.25rem}.mb-admin__order span{font-weight:700;font-size:.85rem;color:#964b00}.mb-admin .mb-admin__order button{padding:.3rem .65rem;font-size:.8rem;line-height:1}

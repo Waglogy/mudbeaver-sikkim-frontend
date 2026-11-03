@@ -34,9 +34,9 @@ const UPLOADS = [
         name: "drawings",
         label: "Architectural drawings",
         icon: "fa-drafting-compass",
-        help: "Floor plans, elevations or hand sketches. PDF or photos.",
-        accept: ".pdf,image/jpeg,image/png,image/webp",
-        hint: "PDF, JPG, PNG or WebP · up to 5 files",
+        help: "Floor plans, elevations or hand sketches. PDF, AutoCAD DWG or photos.",
+        accept: ".pdf,.dwg,image/jpeg,image/png,image/webp",
+        hint: "PDF, DWG, JPG, PNG or WebP · up to 5 files",
         examples: [
             [
                 "/img/examples/drawing-floor-plan.webp",
@@ -102,7 +102,7 @@ const TIPS = {
     "req-services":
         "Design, consultancy, construction — or the full turnkey job?",
     "req-drawings":
-        "Have floor plans or sketches? A PDF or a clear photo works. 📐",
+        "Have floor plans or sketches? A PDF, DWG or a clear photo works. 📐",
     "req-site-photos":
         "Show me your land! A few angles help us plan the design. 🏞️",
     "req-references":

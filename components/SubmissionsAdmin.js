@@ -92,13 +92,13 @@ function Attachments({ items }) {
                                     rel="noreferrer"
                                     title={`Open ${item.name || "file"}`}
                                 >
-                                    {item.type === "pdf" ? (
+                                    {item.type === "pdf" || item.type === "dwg" ? (
                                         <span className="mb-admin__app-pdf">
                                             <i
-                                                className="bi bi-file-earmark-pdf"
+                                                className={`bi bi-file-earmark-${item.type === "pdf" ? "pdf" : "binary"}`}
                                                 aria-hidden="true"
                                             ></i>
-                                            PDF
+                                            {item.type.toUpperCase()}
                                         </span>
                                     ) : (
                                         <img

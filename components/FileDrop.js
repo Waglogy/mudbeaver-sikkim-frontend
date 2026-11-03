@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react"
 const MAX_BYTES = 10 * 1024 * 1024
 const isImage = (file) => file.type.startsWith("image/")
 
-// Styled multi-file picker: shows a thumbnail (or PDF icon) per chosen file,
+// Styled multi-file picker: shows a thumbnail (or PDF/DWG icon) per chosen file,
 // each removable. The real <input type="file"> holds the chosen files, so the
 // form's FormData sends them without any extra wiring.
 export default function FileDrop({
@@ -131,7 +131,9 @@ export default function FileDrop({
                                     className="mb-upload__pdf"
                                     aria-hidden="true"
                                 >
-                                    <i className="fas fa-file-pdf"></i>
+                                    <i
+                                        className={`fas ${/\.dwg$/i.test(file.name) ? "fa-drafting-compass" : "fa-file-pdf"}`}
+                                    ></i>
                                 </span>
                             )}
                             <span className="mb-upload__name">{file.name}</span>

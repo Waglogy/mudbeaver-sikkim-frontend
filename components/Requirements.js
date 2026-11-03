@@ -11,7 +11,7 @@ const ASKS = [
     { label: "Project Budget", icon: "fa-rupee-sign" },
     { label: "Category", icon: "fa-home" },
     { label: "Services Required", icon: "fa-tools" },
-    { label: "Architectural Drawings", icon: "fa-file-pdf" },
+    { label: "Reference Images", icon: "fa-images" },
 ]
 
 // Editorial photo collage: position and size (%), tilt, stacking order, shape and caption
