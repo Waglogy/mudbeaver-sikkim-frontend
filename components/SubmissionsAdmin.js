@@ -59,13 +59,13 @@ const KIND_LABELS = {
     references: "Reference images",
 }
 
-const dateFormat = new Intl.DateTimeFormat("en-IN", {
+export const dateFormat = new Intl.DateTimeFormat("en-IN", {
     dateStyle: "medium",
     timeStyle: "short",
 })
 const numberFormat = new Intl.NumberFormat("en-IN")
 
-function Value({ value, type }) {
+export function Value({ value, type }) {
     if (!value) return "—"
     if (type === "tel") return <a href={`tel:${value}`}>{value}</a>
     if (type === "mailto") return <a href={`mailto:${value}`}>{value}</a>
@@ -74,7 +74,7 @@ function Value({ value, type }) {
     return value
 }
 
-function Attachments({ items }) {
+export function Attachments({ items }) {
     if (!items?.length) return null
     return Object.keys(KIND_LABELS)
         .filter((kind) => items.some((item) => item.kind === kind))

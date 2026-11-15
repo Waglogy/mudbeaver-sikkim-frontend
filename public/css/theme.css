@@ -4594,3 +4594,6 @@ form[aria-busy=true] button[type=submit]{opacity:.6;cursor:wait}
         margin: 0;
     }
 }
+
+/* Client project brief page (app/(site)/brief/[token]) */
+.mb-brief__panel{border:1px solid var(--mb-line);box-shadow:0 30px 60px -40px rgba(60,35,15,.5)}

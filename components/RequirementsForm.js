@@ -5,8 +5,10 @@ import ApiForm from "@/components/ApiForm"
 import FileDrop from "@/components/FileDrop"
 
 // Project enquiry form as a step-by-step wizard, with the animated beaver as a guide.
-// Shown inside RequirementsModal. Sent as multipart so the optional drawings,
-// site photos and reference images upload with the other fields.
+// Shown inside RequirementsModal, and on a converted client's private brief
+// page (/brief/<token>) with `action` and their details prefilled from `client`.
+// Sent as multipart so the optional drawings, site photos and reference images
+// upload with the other fields.
 
 const STEPS = [
     {
@@ -129,7 +131,13 @@ function Field({ id, label, icon, wide, hint, children }) {
     )
 }
 
-export default function RequirementsForm({ onDone, onClose }) {
+export default function RequirementsForm({
+    onDone,
+    onClose,
+    action = "/requirements",
+    client = {},
+    heading = "Let's be specific about your requirements.",
+}) {
     const [step, setStep] = useState(0)
     const [tip, setTip] = useState(STEPS[0].intro)
     const [doneMessage, setDoneMessage] = useState("")
@@ -197,7 +205,7 @@ export default function RequirementsForm({ onDone, onClose }) {
             <aside className="mb-wizard__aside">
                 <span className="mb-wizard__bar" aria-hidden="true"></span>
                 <h2 id="mb-modal-title" className="mb-wizard__title">
-                    Let&apos;s be specific about your requirements.
+                    {heading}
                 </h2>
                 <ol className="mb-wizard__steps">
                     {STEPS.map(({ title }, index) => (
@@ -264,17 +272,19 @@ export default function RequirementsForm({ onDone, onClose }) {
                             with you to brief and help you prepare an actual
                             estimation of your project.
                         </p>
-                        <button
-                            type="button"
-                            className="mb-btn mb-btn--primary"
-                            onClick={onClose}
-                        >
-                            Close
-                        </button>
+                        {onClose && (
+                            <button
+                                type="button"
+                                className="mb-btn mb-btn--primary"
+                                onClick={onClose}
+                            >
+                                Close
+                            </button>
+                        )}
                     </div>
                 ) : (
                     <ApiForm
-                        action="/requirements"
+                        action={action}
                         method="post"
                         encType="multipart/form-data"
                         className="mb-req__form"
@@ -309,6 +319,7 @@ export default function RequirementsForm({ onDone, onClose }) {
                                         id="req-name"
                                         placeholder="Name"
                                         name="username"
+                                        defaultValue={client.name}
                                         required
                                     />
                                 </Field>
@@ -323,6 +334,7 @@ export default function RequirementsForm({ onDone, onClose }) {
                                         id="req-email"
                                         placeholder="Email"
                                         name="email"
+                                        defaultValue={client.email}
                                         required
                                     />
                                 </Field>
@@ -351,6 +363,7 @@ export default function RequirementsForm({ onDone, onClose }) {
                                         id="req-phone"
                                         placeholder="Phone No"
                                         name="phone"
+                                        defaultValue={client.phone}
                                         required
                                     />
                                 </Field>
