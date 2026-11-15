@@ -4595,5 +4595,10 @@ form[aria-busy=true] button[type=submit]{opacity:.6;cursor:wait}
     }
 }
 
-/* Client project brief page (app/(site)/brief/[token]) */
-.mb-brief__panel{border:1px solid var(--mb-line);box-shadow:0 30px 60px -40px rgba(60,35,15,.5)}
+/* Client project brief page (app/(site)/brief/[token]): the popup wizard laid
+   out in the page, growing with its content instead of scrolling inside itself */
+.mb-brief__panel{margin:0 auto;border:1px solid var(--mb-line);border-radius:28px;box-shadow:0 30px 60px -40px rgba(60,35,15,.5)}
+.mb-brief .mb-wizard{height:auto;min-height:min(720px,calc(100dvh - 3rem));max-height:none;overflow:visible}
+.mb-brief .mb-wizard__main{overflow:visible}
+@media(max-width:767.98px){.mb-brief{padding:1.5rem 0 3rem}.mb-brief .mb-wizard{min-height:0}.mb-brief .mb-wizard__title{padding-right:0}.mb-brief__panel{border-radius:22px}}
+@media(max-width:575.98px){.mb-brief .mb-container{padding:0 .75rem}.mb-brief__panel{border-radius:18px}.mb-brief .mb-wizard__main{padding:1.5rem 1rem 1.75rem}}

@@ -468,7 +468,7 @@ export default function RequirementsForm({
                                     id="req-services"
                                     label="SERVICES REQUIRED"
                                     icon="fa-tools"
-                                    wide
+                                    wide={!askPlotArea}
                                     hint="Ex: DESIGN, CONSULTANCY, CONSTRUCTION, TURNKEY"
                                 >
                                     <input
