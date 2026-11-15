@@ -18,7 +18,7 @@ export default async function BriefPage({ params }) {
         <section className="mb-page-section mb-page-section--soft mb-brief"><div className="mb-container">
             {!brief ? <Notice title="This link isn't working.">The link may be mistyped or no longer active. Please get in touch and we&apos;ll send you a new one.</Notice>
                 : brief.status === "submitted" ? <Notice title={`Thank you, ${firstName}!`}>We&apos;ve received your project brief. If you need to change anything, contact us and we&apos;ll reopen it for you.</Notice>
-                : <div className="mb-modal__panel mb-brief__panel"><RequirementsForm action={`/client-briefs/${token}`} heading={`Welcome aboard, ${firstName}! Tell us about your project.`} client={{ name: brief.name, email: brief.email, phone: brief.phone.replace(/\D/g, "") }} /></div>}
+                : <div className="mb-modal__panel mb-brief__panel"><RequirementsForm askPlotArea action={`/client-briefs/${token}`} heading={`Welcome aboard, ${firstName}! Tell us about your project.`} client={{ name: brief.name, email: brief.email, phone: brief.phone.replace(/\D/g, "") }} /></div>}
         </div></section>
         <PageEnd />
     </>

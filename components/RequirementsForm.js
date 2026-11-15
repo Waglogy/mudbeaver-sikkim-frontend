@@ -6,7 +6,8 @@ import FileDrop from "@/components/FileDrop"
 
 // Project enquiry form as a step-by-step wizard, with the animated beaver as a guide.
 // Shown inside RequirementsModal, and on a converted client's private brief
-// page (/brief/<token>) with `action` and their details prefilled from `client`.
+// page (/brief/<token>) with `action`, their details prefilled from `client`
+// and the extra plot area question (`askPlotArea`).
 // Sent as multipart so the optional drawings, site photos and reference images
 // upload with the other fields.
 
@@ -99,6 +100,7 @@ const TIPS = {
     "req-site": "Is your land flat or sloped? Soft or hard ground?",
     "req-category":
         "Cottage, homestay, farmhouse, resort… what are we building?",
+    "req-plot-area": "How big is your land? Just the number in Sq.Ft.",
     "req-area": "Roughly how big? Just the number in Sq.Ft.",
     "req-budget": "A rough budget in ₹ — just the number — helps us plan.",
     "req-services":
@@ -136,6 +138,7 @@ export default function RequirementsForm({
     onClose,
     action = "/requirements",
     client = {},
+    askPlotArea = false,
     heading = "Let's be specific about your requirements.",
 }) {
     const [step, setStep] = useState(0)
@@ -412,6 +415,25 @@ export default function RequirementsForm({
                                         required
                                     />
                                 </Field>
+                                {askPlotArea && (
+                                    <Field
+                                        id="req-plot-area"
+                                        label="PLOT AREA"
+                                        icon="fa-vector-square"
+                                        hint="Total land area in Sq.Ft. Ex: 2400"
+                                    >
+                                        <input
+                                            type="number"
+                                            className="mb-input"
+                                            id="req-plot-area"
+                                            aria-describedby="req-plot-area-hint"
+                                            name="plot_area"
+                                            min="1"
+                                            step="any"
+                                            required
+                                        />
+                                    </Field>
+                                )}
                                 <Field
                                     id="req-area"
                                     label="BUILTUP AREA"

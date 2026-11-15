@@ -15,6 +15,7 @@ const ANSWERS = [
     ["Address", "address"],
     ["Category", "category"],
     ["Site details", "site_details"],
+    ["Plot area", "plot_area", "sqft"],
     ["Built-up area", "area", "sqft"],
     ["Budget", "budget", "rupees"],
     ["Services", "services"],
