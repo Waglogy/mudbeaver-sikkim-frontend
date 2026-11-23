@@ -3721,7 +3721,7 @@ html.mb-modal-lock {
 .mb-page-intro__photo figcaption{position:absolute;bottom:0;left:0;right:0;padding:3rem 1.5rem 1.5rem;background:linear-gradient(transparent,#1c140dbb);color:#fff;text-align:center;font:500 .6rem var(--mb-sans);letter-spacing:.16em}
 .mb-page-section{padding:clamp(3rem,6vw,5.5rem) 0;scroll-margin-top:100px}
 .mb-page-section--soft{background:#f0e9df}
-.mb-page-section h2,.mb-map-section h2{font:700 clamp(1.9rem,3.4vw,2.9rem)/1.16 var(--mb-sans);letter-spacing:-.035em;color:var(--mb-ink);margin:0 0 1.25rem}
+.mb-page-section h2,.mb-map-section h2,.mb-intern-aside h1{font:700 clamp(1.9rem,3.4vw,2.9rem)/1.16 var(--mb-sans);letter-spacing:-.035em;color:var(--mb-ink);margin:0 0 1.25rem}
 .mb-page-section h2 span{color:var(--mb-earth)}
 .mb-page-section p{color:var(--mb-ink-soft);line-height:1.75}
 .mb-page-section__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.5rem,5vw,5rem);align-items:end;margin-bottom:2.75rem}
