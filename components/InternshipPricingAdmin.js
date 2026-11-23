@@ -108,7 +108,7 @@ export default function InternshipPricingAdmin({ pricing, onSaved, onUnauthorize
                                     />
                                 </th>
                             ))}
-                            <th scope="col">Asks institute name</th>
+                            <th scope="col">Ask for institute / college name<small>Tick for students only</small></th>
                             <th scope="col"><span className="mb-admin__sr">Remove</span></th>
                         </tr>
                     </thead>

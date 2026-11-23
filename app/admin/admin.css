@@ -18,6 +18,7 @@
 .mb-admin__pricing table{width:100%;border-collapse:collapse;min-width:640px}
 .mb-admin__pricing th,.mb-admin__pricing td{padding:.5rem;text-align:left;vertical-align:middle;font-size:.8rem}
 .mb-admin__pricing thead th{vertical-align:top;font-weight:600}
+.mb-admin__pricing thead th>small{display:block;margin-top:.2rem}
 .mb-admin__pricing thead th>input{margin-top:.4rem;font-size:.75rem;padding:.5rem .75rem}
 .mb-admin__pricing tbody th{min-width:200px}
 .mb-admin__pricing tbody tr{border-top:1px solid #efe7dc}
