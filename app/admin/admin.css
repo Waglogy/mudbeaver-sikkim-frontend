@@ -98,3 +98,24 @@
 .mb-admin__share input{flex:1 1 280px;min-width:0;padding:.75rem 1rem;border:1px solid #dcd2c5;border-radius:999px;background:#faf6f0;font:inherit;font-size:.85rem;color:#4a3d30}
 .mb-admin__share .mb-admin__link{color:inherit;text-decoration:none}
 @media(max-width:560px){.mb-admin__share>*{flex:1 1 auto;text-align:center}.mb-admin__share input{flex-basis:100%}}
+.mb-admin__pay-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-bottom:1.5rem}
+.mb-admin__pay-summary div{background:#fff;border:1px solid #e8ded0;border-radius:16px;padding:1rem 1.25rem}
+.mb-admin__pay-summary span{display:block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#766858}
+.mb-admin__pay-summary strong{font-size:1.6rem;color:#1c140d}
+.mb-admin__pay-filters{flex-wrap:wrap;align-items:end;margin-bottom:1.25rem}
+.mb-admin__pay-filters label{display:grid;gap:.25rem;font-size:.75rem;font-weight:600}
+.mb-admin__table-wrap{overflow-x:auto;background:#fff;border:1px solid #e8ded0;border-radius:16px}
+.mb-admin__table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:860px}
+.mb-admin__table th{text-align:left;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:#766858;background:#faf6f0;padding:.8rem 1rem;border-bottom:1px solid #e8ded0;white-space:nowrap}
+.mb-admin__table td{padding:.8rem 1rem;border-bottom:1px solid #f0e8dd;vertical-align:top}
+.mb-admin__table tbody tr:last-child td{border-bottom:0}
+.mb-admin__table tbody tr:hover{background:#fdfaf6}
+.mb-admin__table td strong,.mb-admin__table td small,.mb-admin__table td a{display:block}
+.mb-admin__table td small{color:#766858;font-size:.75rem}
+.mb-admin__table td a{color:#964b00;overflow-wrap:anywhere}
+.mb-admin__table .is-num{text-align:right;white-space:nowrap;font-weight:600}
+.mb-admin__ids code{display:block;font-size:.72rem;color:#5a4d3f;white-space:nowrap}
+.mb-admin__badge.is-pay-paid{background:#e7efdf;color:#36552c}
+.mb-admin__badge.is-pay-pending{background:#efe9e1;color:#6b5d4d}
+.mb-admin__table-note{padding:.8rem 1rem;margin:0;font-size:.8rem;color:#766858}
+@media(max-width:650px){.mb-admin__pay-summary{grid-template-columns:minmax(0,1fr)}}
