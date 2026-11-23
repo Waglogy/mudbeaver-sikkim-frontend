@@ -3768,6 +3768,8 @@ html.mb-modal-lock {
 .mb-inquiry__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem 1rem}
 .mb-inquiry__wide{grid-column:1/-1}
 .mb-inquiry label{display:block;font:500 .8rem var(--mb-sans);color:var(--mb-ink);min-width:0}
+.mb-required{color:#c0392b;margin-left:.2em}
+.mb-inquiry label+label{margin-top:1.25rem}
 .mb-inquiry :is(input,select,textarea){display:block;width:100%;min-width:0;padding:.85rem .9rem;margin-top:.5rem;border:1px solid #1c140d26;border-radius:10px;background:var(--mb-cream);font:400 .92rem/1.5 var(--mb-body);color:var(--mb-ink);transition:box-shadow .2s,border-color .2s}
 .mb-inquiry input[type=file]{font-size:.8rem;padding:.9rem;overflow:hidden}
 .mb-inquiry input::file-selector-button{border:0;border-radius:8px;padding:.5rem .75rem;background:#e7dbcc;color:var(--mb-ink);margin-right:.75rem;cursor:pointer}
