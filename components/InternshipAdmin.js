@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react"
 import { adminRequest as request } from "@/lib/adminApi"
 import InternshipApplications from "@/components/InternshipApplications"
-import { BACKGROUNDS, FEE_INCLUDES } from "@/components/InternshipBackground"
+import InternshipPricingAdmin from "@/components/InternshipPricingAdmin"
 
 // Admin: open or close internship applications, and review the applications received
 export default function InternshipAdmin({ onUnauthorized }) {
     const [open, setOpen] = useState(null)
-    const [fees, setFees] = useState(null)
+    const [pricing, setPricing] = useState(null)
     const [busy, setBusy] = useState(false)
     const [message, setMessage] = useState("")
     const [error, setError] = useState("")
@@ -20,7 +20,7 @@ export default function InternshipAdmin({ onUnauthorized }) {
             .then((data) => {
                 if (!active) return
                 setOpen(data.open === true)
-                setFees(data.fees || null)
+                setPricing(data.pricing || null)
             })
             .catch(
                 () =>
@@ -47,31 +47,6 @@ export default function InternshipAdmin({ onUnauthorized }) {
                     ? "Internship applications are now open. The form is live on the Internship page."
                     : "Internship applications are now closed. Visitors see that there is no internship at the moment.",
             )
-        } catch (error) {
-            setError(error.message)
-            if (error.status === 401) onUnauthorized?.(error)
-        } finally {
-            setBusy(false)
-        }
-    }
-
-    async function saveFees(event) {
-        event.preventDefault()
-        setBusy(true)
-        setError("")
-        setMessage("")
-        try {
-            const data = await request("/settings/internship-fees", {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(
-                    Object.fromEntries(
-                        Object.entries(fees).map(([key, value]) => [key, Number(value)]),
-                    ),
-                ),
-            })
-            setFees(data.fees)
-            setMessage("Training fees saved. New applicants pay the updated amount.")
         } catch (error) {
             setError(error.message)
             if (error.status === 401) onUnauthorized?.(error)
@@ -151,50 +126,17 @@ export default function InternshipAdmin({ onUnauthorized }) {
                     </>
                 )}
             </section>
-            {fees && (
-                <form
-                    className="mb-admin__setting mb-admin__fees"
-                    aria-labelledby="internship-fees"
-                    onSubmit={saveFees}
-                >
-                    <div>
-                        <h2 id="internship-fees">Training fees</h2>
-                        <p>
-                            Applicants pay this amount through Razorpay,
-                            based on their background.
-                        </p>
-                    </div>
-                    <div className="mb-admin__fee-fields">
-                        {BACKGROUNDS.map(({ value, label }) => (
-                            <label key={value}>
-                                {label}
-                                <span className="mb-admin__fee-input">
-                                    ₹
-                                    <input
-                                        type="number"
-                                        min="1"
-                                        max="500000"
-                                        step="1"
-                                        required
-                                        value={fees[value] ?? ""}
-                                        onChange={(event) =>
-                                            setFees({
-                                                ...fees,
-                                                [value]: event.target.value,
-                                            })
-                                        }
-                                    />
-                                </span>
-                                <small>Includes: {FEE_INCLUDES[value]}</small>
-                            </label>
-                        ))}
-                        <button type="submit" disabled={busy}>
-                            {busy ? "Saving…" : "Save fees"}
-                        </button>
-                    </div>
-                </form>
+            {pricing && (
+                <InternshipPricingAdmin
+                    pricing={pricing}
+                    onSaved={setPricing}
+                    onUnauthorized={onUnauthorized}
+                />
             )}
-            <InternshipApplications onUnauthorized={onUnauthorized} />
+            <InternshipApplications
+                categories={pricing?.categories}
+                onUnauthorized={onUnauthorized}
+            />
         </>
     )
 }

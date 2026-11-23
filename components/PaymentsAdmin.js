@@ -2,13 +2,12 @@
 
 import { useCallback, useEffect, useState } from "react"
 import { adminRequest as request } from "@/lib/adminApi"
-import { BACKGROUNDS, rupees } from "@/components/InternshipBackground"
+import { rupees } from "@/components/InternshipBackground"
 import { buildXlsx, downloadBlob } from "@/lib/xlsx"
 
 // Admin: internship payments made through Razorpay, with Excel export
 
 const STATUS_LABELS = { paid: "Paid", pending: "Pending" }
-const backgroundLabel = (value) => BACKGROUNDS.find((b) => b.value === value)?.label || value
 
 const dateTime = new Intl.DateTimeFormat("en-IN", {
     dateStyle: "medium",
@@ -53,7 +52,7 @@ export default function PaymentsAdmin({ onUnauthorized }) {
 
     function exportExcel() {
         const rows = [
-            ["Paid on", "Applied on", "Name", "Email", "Phone", "City", "State", "Background", "Institute", "Amount (₹)", "Status", "Razorpay payment ID", "Razorpay order ID"],
+            ["Paid on", "Applied on", "Name", "Email", "Phone", "City", "State", "Background", "Institute", "Option", "Amount (₹)", "Status", "Razorpay payment ID", "Razorpay order ID"],
             ...items.map((item) => [
                 formatDate(item.paid_at),
                 formatDate(item.created_at),
@@ -62,15 +61,16 @@ export default function PaymentsAdmin({ onUnauthorized }) {
                 item.phone,
                 item.city,
                 item.region,
-                backgroundLabel(item.background),
+                item.background_label || item.background,
                 item.institution || "",
+                item.fee_option_label || "",
                 item.amount ?? "",
                 STATUS_LABELS[item.payment_status] || item.payment_status,
                 item.razorpay_payment_id || "",
                 item.razorpay_order_id || "",
             ]),
             [],
-            ["Total collected", "", "", "", "", "", "", "", "", collected, `${paid.length} paid`],
+            ["Total collected", "", "", "", "", "", "", "", "", "", collected, `${paid.length} paid`],
         ]
         const stamp = new Date().toISOString().slice(0, 10)
         downloadBlob(
@@ -189,8 +189,9 @@ export default function PaymentsAdmin({ onUnauthorized }) {
                                         <a href={`tel:${item.phone}`}>{item.phone}</a>
                                     </td>
                                     <td>
-                                        {backgroundLabel(item.background)}
+                                        {item.background_label || item.background}
                                         {item.institution && <small>{item.institution}</small>}
+                                        {item.fee_option_label && <small>{item.fee_option_label}</small>}
                                     </td>
                                     <td className="is-num">{item.amount != null ? rupees(item.amount) : "—"}</td>
                                     <td>

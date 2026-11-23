@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react"
 import { adminRequest as request } from "@/lib/adminApi"
-import { BACKGROUNDS, rupees } from "@/components/InternshipBackground"
+import { rupees } from "@/components/InternshipBackground"
 
 // Admin review list for internship applications (admin-only API)
 
@@ -23,7 +23,7 @@ const dateFormat = new Intl.DateTimeFormat("en-IN", {
     timeStyle: "short",
 })
 
-export default function InternshipApplications({ onUnauthorized }) {
+export default function InternshipApplications({ categories = [], onUnauthorized }) {
     const [items, setItems] = useState(null)
     const [search, setSearch] = useState("")
     const [status, setStatus] = useState("")
@@ -149,8 +149,8 @@ export default function InternshipApplications({ onUnauthorized }) {
                             onChange={(event) => setBackground(event.target.value)}
                         >
                             <option value="">All backgrounds</option>
-                            {BACKGROUNDS.map(({ value, label }) => (
-                                <option key={value} value={value}>
+                            {categories.map(({ id, label }) => (
+                                <option key={id} value={id}>
                                     {label}
                                 </option>
                             ))}
@@ -263,11 +263,11 @@ export default function InternshipApplications({ onUnauthorized }) {
                                     </span>
                                 </div>
                                 <p className="mb-admin__app-meta">
-                                    {BACKGROUNDS.find(
-                                        (b) => b.value === item.background,
-                                    )?.label}
+                                    {item.background_label || item.background}
                                     {item.institution &&
                                         `: ${item.institution}`}{" "}
+                                    {item.fee_option_label &&
+                                        `· ${item.fee_option_label} `}
                                     · Applied{" "}
                                     {dateFormat.format(
                                         new Date(item.created_at),

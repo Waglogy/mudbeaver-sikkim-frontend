@@ -12,13 +12,22 @@
 .mb-admin__setting .is-open{color:#36552c}
 .mb-admin__setting .is-closed{color:#982e25}
 .mb-admin__fees{margin-top:1rem;align-items:flex-start;flex-direction:column}
-.mb-admin__fee-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:1rem;align-items:end;width:100%}
-.mb-admin__fee-fields label{display:grid;gap:.4rem;font-size:.8rem;font-weight:600}
-.mb-admin__fee-fields small{font-weight:400;color:#766858}
 .mb-admin__fee-input{display:flex;align-items:center;gap:.4rem;border:1px solid #dcd2c5;border-radius:10px;padding:0 .75rem;background:#fff;font-weight:600}
-.mb-admin__fee-input input{border:0;width:100%;min-width:0;padding:.7rem 0;font:inherit;background:transparent}
-.mb-admin__fee-fields button{align-self:center}
-@media(max-width:860px){.mb-admin__fee-fields{grid-template-columns:minmax(0,1fr)}}
+.mb-admin .mb-admin__fee-input input{border:0;width:100%;min-width:0;padding:.7rem 0;background:transparent}
+.mb-admin__pricing{width:100%;overflow-x:auto}
+.mb-admin__pricing table{width:100%;border-collapse:collapse;min-width:640px}
+.mb-admin__pricing th,.mb-admin__pricing td{padding:.5rem;text-align:left;vertical-align:middle;font-size:.8rem}
+.mb-admin__pricing thead th{vertical-align:top;font-weight:600}
+.mb-admin__pricing thead th>input{margin-top:.4rem;font-size:.75rem;padding:.5rem .75rem}
+.mb-admin__pricing tbody th{min-width:200px}
+.mb-admin__pricing tbody tr{border-top:1px solid #efe7dc}
+.mb-admin__pricing input[type=checkbox]{accent-color:#964b00;width:20px;height:20px}
+.mb-admin__pricing-option{display:flex;gap:.35rem;align-items:center}
+.mb-admin .mb-admin__pricing-remove{padding:.3rem .65rem;background:transparent;color:#9b3028;border-color:#e3d9cb;font-size:1rem}
+.mb-admin .mb-admin__pricing-remove:hover{background:#fbe9e5}
+.mb-admin__pricing-actions{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.mb-admin__pricing-actions button[type=submit]{margin-left:auto}
+.mb-admin__fees>.mb-admin__success,.mb-admin__fees>.mb-admin__error{width:100%}
 .mb-admin label.mb-admin__switch{flex-direction:row;align-items:center;gap:.85rem;flex-shrink:0;font-size:.95rem;cursor:pointer}
 .mb-admin__switch input{position:absolute;opacity:0;width:1px;height:1px}
 .mb-admin__switch span{position:relative;width:56px;height:32px;border-radius:999px;background:#d8cfc3;transition:background-color .25s}

@@ -3799,6 +3799,14 @@ html.mb-modal-lock {
 .mb-intern-fees{list-style:none;padding:0;margin:0;display:grid;gap:.6rem;font-size:.8rem}
 .mb-intern-fees strong{display:block;font-size:1.5rem}
 .mb-intern-payment--online{grid-template-columns:minmax(0,1fr)}
+.mb-intern-stay{display:grid;gap:.6rem;margin-top:1rem}
+.mb-intern-stay>p{margin:0;font-size:.85rem;font-weight:500}
+.mb-intern-stay label{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.85rem;align-items:center;padding:.9rem 1rem;border:1px solid var(--mb-line);border-radius:12px;background:#fff;cursor:pointer;margin:0}
+.mb-intern-stay label.is-selected{border-color:var(--mb-earth);background:var(--mb-cream)}
+.mb-intern-stay input{width:auto;margin:0;accent-color:var(--mb-earth)}
+.mb-intern-stay strong{display:block;font-size:.9rem}
+.mb-intern-stay small{display:block;font-size:.75rem;color:var(--mb-ink-soft);font-weight:400}
+.mb-intern-stay b{font:600 1.05rem var(--mb-sans);color:var(--mb-earth);white-space:nowrap}
 .mb-intern-form fieldset>.mb-btn{display:flex;width:100%;justify-content:space-between;border:0;cursor:pointer}
 .mb-intern-otp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem;align-items:end;margin-bottom:.75rem}
 .mb-intern-otp .mb-btn{border:0;cursor:pointer;white-space:nowrap;min-height:3.1rem}

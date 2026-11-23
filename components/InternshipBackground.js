@@ -1,26 +1,13 @@
 "use client"
 
-// Values match the backend's internships.background column
-export const BACKGROUNDS = [
-    { value: "institute", label: "Institute" },
-    { value: "professional", label: "Working professional" },
-    { value: "enthusiast", label: "Natural building / sustainability enthusiast" },
-]
-
-// What the fee covers for each background (amounts are set in the admin workspace)
-export const FEE_INCLUDES = {
-    institute: "Training",
-    professional: "Training, accommodation and food",
-    enthusiast: "Training, accommodation and food",
-}
-
 export const rupees = (amount) => `₹${Number(amount).toLocaleString("en-IN")}`
 
-// Background picker for the internship form. Choosing "Institute" also asks for
-// the institute's name, submitted as `institution`.
-export default function InternshipBackground({ value, onChange }) {
+// Category picker for the internship form. Categories (and whether they ask for
+// an institute name, submitted as `institution`) are set in the admin workspace.
+export default function InternshipBackground({ categories = [], value, onChange, institution }) {
+    const category = categories.find((item) => item.id === value)
     return <>
-        <label htmlFor="intern-background">Which best describes you?<span className="mb-required" aria-hidden="true">*</span><select id="intern-background" name="background" value={value} onChange={(event) => onChange(event.target.value)} required><option value="" disabled>Select an option</option>{BACKGROUNDS.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}</select></label>
-        {value === "institute" && <label htmlFor="intern-institution">Institute name<span className="mb-required" aria-hidden="true">*</span><input id="intern-institution" name="institution" type="text" placeholder="Name of your institute" autoComplete="organization" required maxLength={254} /></label>}
+        <label htmlFor="intern-background">Which best describes you?<span className="mb-required" aria-hidden="true">*</span><select id="intern-background" name="background" value={value} onChange={(event) => onChange(event.target.value)} required><option value="" disabled>Select an option</option>{categories.map(({ id, label }) => <option key={id} value={id}>{label}</option>)}</select></label>
+        {category?.ask_institution && <label htmlFor="intern-institution">Institute / college name<span className="mb-required" aria-hidden="true">*</span><input id="intern-institution" name="institution" type="text" placeholder="Name of your institute" autoComplete="organization" required maxLength={254} defaultValue={institution || ""} /></label>}
     </>
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import InternshipBackground, { FEE_INCLUDES, rupees } from "@/components/InternshipBackground"
+import InternshipBackground, { rupees } from "@/components/InternshipBackground"
 
 const FIELDS = [
     ["name", "Full name", "text", "Your full name", "name"],
@@ -41,19 +41,66 @@ function loadCheckout() {
     return checkoutScript
 }
 
+// A verified email survives a refresh for this tab, until the server's token expires (2 hours)
+const VERIFIED_KEY = "mb-intern-verified"
+const VERIFIED_TTL = 2 * 60 * 60 * 1000
+function saveVerified(value) {
+    try {
+        if (value) sessionStorage.setItem(VERIFIED_KEY, JSON.stringify({ ...value, at: Date.now() }))
+        else sessionStorage.removeItem(VERIFIED_KEY)
+    } catch {}
+}
+function loadVerified() {
+    try {
+        const saved = JSON.parse(sessionStorage.getItem(VERIFIED_KEY) || "null")
+        if (saved?.email && saved?.token && Date.now() - saved.at < VERIFIED_TTL) return saved
+        sessionStorage.removeItem(VERIFIED_KEY)
+    } catch {}
+    return null
+}
+
+// Unsent form fields, kept for this tab so a refresh doesn't lose them
+const DRAFT_KEY = "mb-intern-draft"
+function saveDraft(value) {
+    try {
+        if (value) sessionStorage.setItem(DRAFT_KEY, JSON.stringify(value))
+        else sessionStorage.removeItem(DRAFT_KEY)
+    } catch {}
+}
+function loadDraft() {
+    try {
+        const saved = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || "null")
+        if (saved && typeof saved === "object") return saved
+    } catch {}
+    return {}
+}
+
 // Internship application: verify email by code, fill in details, then pay with Razorpay
-export default function InternshipApplication({ fees }) {
+export default function InternshipApplication({ pricing }) {
     const [email, setEmail] = useState("")
     const [codeSent, setCodeSent] = useState(false)
     const [code, setCode] = useState("")
     const [token, setToken] = useState("")
     const [cooldown, setCooldown] = useState(0)
     const [background, setBackground] = useState("")
+    const [option, setOption] = useState("")
+    const [draft, setDraft] = useState({})
     const [busy, setBusy] = useState("")
     const [error, setError] = useState("")
     const [notice, setNotice] = useState("")
     const [done, setDone] = useState("")
     const codeInput = useRef(null)
+
+    useEffect(() => {
+        const saved = loadVerified()
+        const fields = loadDraft()
+        setDraft(fields)
+        if (pricing?.categories?.some((item) => item.id === fields.background)) setBackground(fields.background)
+        if (pricing?.options?.some((item) => item.id === fields.fee_option)) setOption(fields.fee_option)
+        if (!saved) return
+        setEmail(saved.email)
+        setToken(saved.token)
+    }, [pricing])
 
     useEffect(() => {
         if (!cooldown) return
@@ -86,6 +133,7 @@ export default function InternshipApplication({ fees }) {
         try {
             const data = await post("/internship/otp/verify", { email, code })
             setToken(data.token)
+            saveVerified({ email, token: data.token })
             setNotice("")
         } catch (error) {
             setError(error.message)
@@ -95,6 +143,7 @@ export default function InternshipApplication({ fees }) {
     }
 
     function changeEmail() {
+        saveVerified(null)
         setToken("")
         setCodeSent(false)
         setCode("")
@@ -126,6 +175,8 @@ export default function InternshipApplication({ fees }) {
                     theme: { color: "#964b00" },
                     handler: (response) =>
                         post("/internship/payment/verify", response).then((data) => {
+                            saveVerified(null)
+                            saveDraft(null)
                             setDone(data.message)
                             resolve()
                         }, reject),
@@ -147,7 +198,9 @@ export default function InternshipApplication({ fees }) {
     if (done)
         return <div className="mb-intern-done" role="status"><i className="bi bi-check-circle" aria-hidden="true"></i><h4>You&apos;re enrolled.</h4><p>{done}</p><p>A receipt has been sent to <strong>{email}</strong>.</p></div>
 
-    const fee = fees?.[background]
+    const category = pricing?.categories?.find((item) => item.id === background)
+    const chosen = category && pricing.options.find((item) => item.id === option)
+    const fee = chosen && category.prices[chosen.id]
     return <div className="mb-inquiry">
         <fieldset disabled={Boolean(busy)}><legend><span>01</span> Verify your email</legend>
             {token
@@ -169,13 +222,15 @@ export default function InternshipApplication({ fees }) {
                 </>}
         </fieldset>
         {error && <p className="mb-intern-error" role="alert">{error}</p>}
-        {token && <form onSubmit={pay}>
-            <fieldset disabled={Boolean(busy)}><legend><span>02</span> Personal details</legend><div className="mb-inquiry__grid">{FIELDS.map(([name, label, type, placeholder, autoComplete]) => <label key={name} htmlFor={`intern-${name}`}>{label}<span className="mb-required" aria-hidden="true">*</span><input id={`intern-${name}`} name={name} type={type} placeholder={placeholder} autoComplete={autoComplete} required maxLength={type === "date" ? undefined : 254} pattern={name === "phone" ? "[0-9]{7,15}" : name === "zip_code" ? "[0-9]{4,10}" : undefined} title={name === "phone" ? "Enter 7 to 15 digits, without spaces or symbols." : name === "zip_code" ? "Enter a numeric postal code." : undefined} /></label>)}</div></fieldset>
-            <fieldset disabled={Boolean(busy)}><legend><span>03</span> Your background</legend><InternshipBackground value={background} onChange={setBackground} /></fieldset>
+        {token && <form onSubmit={pay} onChange={(event) => saveDraft(Object.fromEntries(new FormData(event.currentTarget)))}>
+            <fieldset disabled={Boolean(busy)}><legend><span>02</span> Personal details</legend><div className="mb-inquiry__grid">{FIELDS.map(([name, label, type, placeholder, autoComplete]) => <label key={name} htmlFor={`intern-${name}`}>{label}<span className="mb-required" aria-hidden="true">*</span><input id={`intern-${name}`} name={name} type={type} defaultValue={draft[name] || ""} placeholder={placeholder} autoComplete={autoComplete} required maxLength={type === "date" ? undefined : 254} pattern={name === "phone" ? "[0-9]{7,15}" : name === "zip_code" ? "[0-9]{4,10}" : undefined} title={name === "phone" ? "Enter 7 to 15 digits, without spaces or symbols." : name === "zip_code" ? "Enter a numeric postal code." : undefined} /></label>)}</div></fieldset>
+            <fieldset disabled={Boolean(busy)}><legend><span>03</span> Your background</legend><InternshipBackground categories={pricing?.categories} value={background} onChange={setBackground} institution={draft.institution} />
+                {category && <div className="mb-intern-stay" role="radiogroup" aria-label="Fee option"><p>Choose an option<span className="mb-required" aria-hidden="true">*</span></p>{pricing.options.map(({ id, label, note }) => <label key={id} className={option === id ? "is-selected" : undefined}><input type="radio" name="fee_option" value={id} checked={option === id} onChange={() => setOption(id)} required /><span><strong>{label}</strong>{note && <small>{note}</small>}</span><b>{rupees(category.prices[id])}</b></label>)}</div>}
+            </fieldset>
             <fieldset disabled={Boolean(busy)}><legend><span>04</span> Payment</legend>
                 <div className="mb-intern-payment mb-intern-payment--online"><div><p>Training fee</p>{fee
-                    ? <><strong>{rupees(fee)}</strong><p>Includes: {FEE_INCLUDES[background]}</p></>
-                    : fees && <ul className="mb-intern-fees"><li><strong>{rupees(fees.institute)}</strong> Institute students (training)</li><li><strong>{rupees(Math.min(fees.professional, fees.enthusiast))}{fees.professional !== fees.enthusiast && ` – ${rupees(Math.max(fees.professional, fees.enthusiast))}`}</strong> Working professionals and enthusiasts (training, accommodation and food)</li></ul>}
+                    ? <><strong>{rupees(fee)}</strong><p>{category.label} · {chosen.label}</p></>
+                    : <p>Choose your background and an option above to see your fee.</p>}
                     <p>Pay securely with UPI, cards, net banking or wallets through Razorpay.</p></div></div>
                 <button className="mb-btn mb-btn--primary" type="submit">{busy === "pay" ? "Opening payment…" : fee ? `Pay ${rupees(fee)}` : "Continue to payment"} <i className="bi bi-arrow-up-right" aria-hidden="true"></i></button>
                 <p className="mb-form-note">After payment, our team will get in touch about your batch.</p>
