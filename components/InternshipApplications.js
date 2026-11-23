@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react"
 import { adminRequest as request } from "@/lib/adminApi"
+import { BACKGROUNDS } from "@/components/InternshipBackground"
 
 // Admin review list for internship applications (admin-only API)
 
@@ -20,18 +21,20 @@ export default function InternshipApplications({ onUnauthorized }) {
     const [items, setItems] = useState(null)
     const [search, setSearch] = useState("")
     const [status, setStatus] = useState("")
+    const [background, setBackground] = useState("")
     const [error, setError] = useState("")
     const [saving, setSaving] = useState(null)
     const [deleting, setDeleting] = useState(null)
     const [message, setMessage] = useState("")
 
     const load = useCallback(
-        async (query, filter) => {
+        async (query, filter, group) => {
             setError("")
             try {
                 const params = new URLSearchParams()
                 if (query) params.set("search", query)
                 if (filter) params.set("status", filter)
+                if (group) params.set("background", group)
                 setItems(
                     await request(
                         `/internships${params.size ? `?${params}` : ""}`,
@@ -47,9 +50,9 @@ export default function InternshipApplications({ onUnauthorized }) {
 
     // Reload when the filter changes, and shortly after typing stops
     useEffect(() => {
-        const timer = setTimeout(() => load(search.trim(), status), 300)
+        const timer = setTimeout(() => load(search.trim(), status, background), 300)
         return () => clearTimeout(timer)
-    }, [search, status, load])
+    }, [search, status, background, load])
 
     async function changeStatus(item, next) {
         setSaving(item.id)
@@ -100,7 +103,7 @@ export default function InternshipApplications({ onUnauthorized }) {
                     <h2 id="apps-title">Applications</h2>
                     <p>
                         {items
-                            ? `${items.length} ${items.length === 1 ? "application" : "applications"}${status || search ? " found" : " received"}`
+                            ? `${items.length} ${items.length === 1 ? "application" : "applications"}${status || background || search ? " found" : " received"}`
                             : "Loading…"}
                     </p>
                 </div>
@@ -111,7 +114,7 @@ export default function InternshipApplications({ onUnauthorized }) {
                         </span>
                         <input
                             type="search"
-                            placeholder="Search name, email, phone, institution…"
+                            placeholder="Search name, email, phone, institute…"
                             value={search}
                             maxLength={120}
                             onChange={(event) => setSearch(event.target.value)}
@@ -131,6 +134,20 @@ export default function InternshipApplications({ onUnauthorized }) {
                             ))}
                         </select>
                     </label>
+                    <label>
+                        <span className="mb-admin__sr">Filter by background</span>
+                        <select
+                            value={background}
+                            onChange={(event) => setBackground(event.target.value)}
+                        >
+                            <option value="">All backgrounds</option>
+                            {BACKGROUNDS.map(({ value, label }) => (
+                                <option key={value} value={value}>
+                                    {label}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
                 </div>
             </div>
 
@@ -144,7 +161,7 @@ export default function InternshipApplications({ onUnauthorized }) {
                     {error}{" "}
                     <button
                         className="mb-admin__secondary"
-                        onClick={() => load(search.trim(), status)}
+                        onClick={() => load(search.trim(), status, background)}
                     >
                         Try again
                     </button>
@@ -154,13 +171,13 @@ export default function InternshipApplications({ onUnauthorized }) {
             {items && !items.length && !error ? (
                 <div className="mb-admin__empty">
                     <h2>
-                        {search || status
+                        {search || status || background
                             ? "No matching applications."
                             : "No applications yet."}
                     </h2>
                     <p>
-                        {search || status
-                            ? "Try a different search or status."
+                        {search || status || background
+                            ? "Try a different search or filter."
                             : "New internship applications will appear here."}
                     </p>
                 </div>
@@ -208,7 +225,12 @@ export default function InternshipApplications({ onUnauthorized }) {
                                     </span>
                                 </div>
                                 <p className="mb-admin__app-meta">
-                                    {item.institution} · Applied{" "}
+                                    {BACKGROUNDS.find(
+                                        (b) => b.value === item.background,
+                                    )?.label}
+                                    {item.institution &&
+                                        `: ${item.institution}`}{" "}
+                                    · Applied{" "}
                                     {dateFormat.format(
                                         new Date(item.created_at),
                                     )}
