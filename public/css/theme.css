@@ -3796,6 +3796,24 @@ html.mb-modal-lock {
 .mb-intern-payment strong{font:600 2.2rem var(--mb-sans);color:var(--mb-earth)}
 .mb-intern-payment p{font-size:.8rem;margin:0 0 .5rem}
 .mb-intern-payment p:last-child{margin-top:.75rem;margin-bottom:0}
+.mb-intern-fees{list-style:none;padding:0;margin:0;display:grid;gap:.6rem;font-size:.8rem}
+.mb-intern-fees strong{display:block;font-size:1.5rem}
+.mb-intern-payment--online{grid-template-columns:minmax(0,1fr)}
+.mb-intern-form fieldset>.mb-btn{display:flex;width:100%;justify-content:space-between;border:0;cursor:pointer}
+.mb-intern-otp{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.75rem;align-items:end;margin-bottom:.75rem}
+.mb-intern-otp .mb-btn{border:0;cursor:pointer;white-space:nowrap;min-height:3.1rem}
+.mb-intern-otp__links{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:1.25rem;margin:0;font-size:.8rem}
+.mb-intern-otp__links button,.mb-intern-verified button{border:0;background:none;padding:0;color:var(--mb-earth);font:600 .8rem var(--mb-sans);cursor:pointer;text-decoration:underline}
+.mb-intern-otp__links button:disabled{color:var(--mb-ink-soft);text-decoration:none;cursor:default}
+.mb-intern-verified{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;background:var(--mb-cream);border-radius:10px;padding:.85rem 1rem;margin:0;font:500 .9rem var(--mb-sans);color:var(--mb-ink);overflow-wrap:anywhere}
+.mb-intern-verified i{color:#2e7d32}
+.mb-intern-verified button{margin-left:auto}
+.mb-intern-error{background:#fdecea;color:#a12a1c;border-radius:10px;padding:.85rem 1rem;font-size:.85rem;margin:0 0 1.5rem}
+.mb-intern-done{text-align:center;padding:2rem 1rem}
+.mb-intern-done i{font-size:2.5rem;color:#2e7d32}
+.mb-intern-done h4{font:600 1.4rem var(--mb-sans);color:var(--mb-ink);margin:.75rem 0}
+.mb-intern-done p{font-size:.9rem}
+@media(max-width:575.98px){.mb-intern-otp{grid-template-columns:minmax(0,1fr)}}
 .mb-intern-payment img{width:100%;height:auto;max-height:260px;object-fit:contain;background:#fff;border-radius:10px}
 .mb-form-note{text-align:center;font-size:.75rem;margin:1rem 0 0;color:var(--mb-ink-soft)!important}
 .mb-contact-section{padding-top:1.5rem}

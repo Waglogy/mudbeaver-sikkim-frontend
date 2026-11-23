@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react"
 import { adminRequest as request } from "@/lib/adminApi"
-import { BACKGROUNDS } from "@/components/InternshipBackground"
+import { BACKGROUNDS, rupees } from "@/components/InternshipBackground"
 
 // Admin review list for internship applications (admin-only API)
 
@@ -10,6 +10,12 @@ const STATUSES = [
     { value: "new", label: "New" },
     { value: "reviewed", label: "Reviewed" },
     { value: "contacted", label: "Contacted" },
+]
+
+const PAYMENTS = [
+    { value: "paid", label: "Paid" },
+    { value: "pending", label: "Payment pending" },
+    { value: "screenshot", label: "Screenshot (manual)" },
 ]
 
 const dateFormat = new Intl.DateTimeFormat("en-IN", {
@@ -22,19 +28,21 @@ export default function InternshipApplications({ onUnauthorized }) {
     const [search, setSearch] = useState("")
     const [status, setStatus] = useState("")
     const [background, setBackground] = useState("")
+    const [payment, setPayment] = useState("")
     const [error, setError] = useState("")
     const [saving, setSaving] = useState(null)
     const [deleting, setDeleting] = useState(null)
     const [message, setMessage] = useState("")
 
     const load = useCallback(
-        async (query, filter, group) => {
+        async (query, filter, group, paid) => {
             setError("")
             try {
                 const params = new URLSearchParams()
                 if (query) params.set("search", query)
                 if (filter) params.set("status", filter)
                 if (group) params.set("background", group)
+                if (paid) params.set("payment", paid)
                 setItems(
                     await request(
                         `/internships${params.size ? `?${params}` : ""}`,
@@ -50,9 +58,9 @@ export default function InternshipApplications({ onUnauthorized }) {
 
     // Reload when the filter changes, and shortly after typing stops
     useEffect(() => {
-        const timer = setTimeout(() => load(search.trim(), status, background), 300)
+        const timer = setTimeout(() => load(search.trim(), status, background, payment), 300)
         return () => clearTimeout(timer)
-    }, [search, status, background, load])
+    }, [search, status, background, payment, load])
 
     async function changeStatus(item, next) {
         setSaving(item.id)
@@ -103,7 +111,7 @@ export default function InternshipApplications({ onUnauthorized }) {
                     <h2 id="apps-title">Applications</h2>
                     <p>
                         {items
-                            ? `${items.length} ${items.length === 1 ? "application" : "applications"}${status || background || search ? " found" : " received"}`
+                            ? `${items.length} ${items.length === 1 ? "application" : "applications"}${status || background || payment || search ? " found" : " received"}`
                             : "Loading…"}
                     </p>
                 </div>
@@ -114,7 +122,7 @@ export default function InternshipApplications({ onUnauthorized }) {
                         </span>
                         <input
                             type="search"
-                            placeholder="Search name, email, phone, institute…"
+                            placeholder="Search name, email, phone, institute, payment ID…"
                             value={search}
                             maxLength={120}
                             onChange={(event) => setSearch(event.target.value)}
@@ -148,6 +156,20 @@ export default function InternshipApplications({ onUnauthorized }) {
                             ))}
                         </select>
                     </label>
+                    <label>
+                        <span className="mb-admin__sr">Filter by payment</span>
+                        <select
+                            value={payment}
+                            onChange={(event) => setPayment(event.target.value)}
+                        >
+                            <option value="">All payments</option>
+                            {PAYMENTS.map(({ value, label }) => (
+                                <option key={value} value={value}>
+                                    {label}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
                 </div>
             </div>
 
@@ -161,7 +183,7 @@ export default function InternshipApplications({ onUnauthorized }) {
                     {error}{" "}
                     <button
                         className="mb-admin__secondary"
-                        onClick={() => load(search.trim(), status, background)}
+                        onClick={() => load(search.trim(), status, background, payment)}
                     >
                         Try again
                     </button>
@@ -171,12 +193,12 @@ export default function InternshipApplications({ onUnauthorized }) {
             {items && !items.length && !error ? (
                 <div className="mb-admin__empty">
                     <h2>
-                        {search || status || background
+                        {search || status || background || payment
                             ? "No matching applications."
                             : "No applications yet."}
                     </h2>
                     <p>
-                        {search || status || background
+                        {search || status || background || payment
                             ? "Try a different search or filter."
                             : "New internship applications will appear here."}
                     </p>
@@ -188,29 +210,45 @@ export default function InternshipApplications({ onUnauthorized }) {
                             key={item.id}
                             className={`mb-admin__app is-${item.status}`}
                         >
-                            <a
-                                className="mb-admin__app-shot"
-                                href={item.screenshot}
-                                target="_blank"
-                                rel="noreferrer"
-                                title="Open payment proof"
-                            >
-                                {item.screenshot_type === "pdf" ? (
+                            {item.screenshot ? (
+                                <a
+                                    className="mb-admin__app-shot"
+                                    href={item.screenshot}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    title="Open payment proof"
+                                >
+                                    {item.screenshot_type === "pdf" ? (
+                                        <span className="mb-admin__app-pdf">
+                                            <i
+                                                className="bi bi-file-earmark-pdf"
+                                                aria-hidden="true"
+                                            ></i>
+                                            PDF receipt
+                                        </span>
+                                    ) : (
+                                        <img
+                                            src={item.screenshot}
+                                            alt={`Payment screenshot from ${item.name}`}
+                                            loading="lazy"
+                                        />
+                                    )}
+                                </a>
+                            ) : (
+                                <div
+                                    className={`mb-admin__app-shot mb-admin__app-paystate is-${item.payment_status}`}
+                                >
                                     <span className="mb-admin__app-pdf">
                                         <i
-                                            className="bi bi-file-earmark-pdf"
+                                            className={`bi ${item.payment_status === "paid" ? "bi-check-circle" : "bi-hourglass-split"}`}
                                             aria-hidden="true"
                                         ></i>
-                                        PDF receipt
+                                        {item.payment_status === "paid"
+                                            ? "Paid online"
+                                            : "Payment pending"}
                                     </span>
-                                ) : (
-                                    <img
-                                        src={item.screenshot}
-                                        alt={`Payment screenshot from ${item.name}`}
-                                        loading="lazy"
-                                    />
-                                )}
-                            </a>
+                                </div>
+                            )}
                             <div className="mb-admin__app-body">
                                 <div className="mb-admin__app-top">
                                     <h3>{item.name}</h3>
@@ -236,6 +274,21 @@ export default function InternshipApplications({ onUnauthorized }) {
                                     )}
                                 </p>
                                 <dl>
+                                    <div>
+                                        <dt>Payment</dt>
+                                        <dd>
+                                            {item.payment_status === "paid"
+                                                ? `${rupees(item.amount)} paid${item.paid_at ? ` on ${dateFormat.format(new Date(item.paid_at))}` : ""}`
+                                                : item.payment_status === "pending"
+                                                  ? `${rupees(item.amount)} not paid yet`
+                                                  : "Screenshot uploaded (check manually)"}
+                                            {item.razorpay_payment_id && (
+                                                <small className="mb-admin__payid">
+                                                    {item.razorpay_payment_id}
+                                                </small>
+                                            )}
+                                        </dd>
+                                    </div>
                                     <div>
                                         <dt>Email</dt>
                                         <dd>

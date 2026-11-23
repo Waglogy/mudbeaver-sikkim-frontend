@@ -11,6 +11,14 @@
 .mb-admin__setting p{margin:0}
 .mb-admin__setting .is-open{color:#36552c}
 .mb-admin__setting .is-closed{color:#982e25}
+.mb-admin__fees{margin-top:1rem;align-items:flex-start;flex-direction:column}
+.mb-admin__fee-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:1rem;align-items:end;width:100%}
+.mb-admin__fee-fields label{display:grid;gap:.4rem;font-size:.8rem;font-weight:600}
+.mb-admin__fee-fields small{font-weight:400;color:#766858}
+.mb-admin__fee-input{display:flex;align-items:center;gap:.4rem;border:1px solid #dcd2c5;border-radius:10px;padding:0 .75rem;background:#fff;font-weight:600}
+.mb-admin__fee-input input{border:0;width:100%;min-width:0;padding:.7rem 0;font:inherit;background:transparent}
+.mb-admin__fee-fields button{align-self:center}
+@media(max-width:860px){.mb-admin__fee-fields{grid-template-columns:minmax(0,1fr)}}
 .mb-admin label.mb-admin__switch{flex-direction:row;align-items:center;gap:.85rem;flex-shrink:0;font-size:.95rem;cursor:pointer}
 .mb-admin__switch input{position:absolute;opacity:0;width:1px;height:1px}
 .mb-admin__switch span{position:relative;width:56px;height:32px;border-radius:999px;background:#d8cfc3;transition:background-color .25s}
@@ -46,6 +54,9 @@
 .mb-admin__badge.is-new{background:#fbeadb;color:#964b00}
 .mb-admin__badge.is-reviewed{background:#efe9e1;color:#6b5d4d}
 .mb-admin__badge.is-contacted{background:#e7efdf;color:#36552c}
+.mb-admin__app-paystate.is-paid{background:#e7efdf}.mb-admin__app-paystate.is-paid .mb-admin__app-pdf{color:#36552c}
+.mb-admin__app-paystate.is-pending .mb-admin__app-pdf{color:#766858}
+.mb-admin__payid{display:block;color:#766858;font-family:monospace;font-size:.75rem;overflow-wrap:anywhere}
 .mb-admin label.mb-admin__app-status{min-width:150px;font-size:.75rem}
 @media(max-width:860px){.mb-admin__apps-head{flex-direction:column;align-items:stretch}.mb-admin__filters{flex-direction:column}.mb-admin__filters input{min-width:0}.mb-admin__app{grid-template-columns:72px minmax(0,1fr)}.mb-admin__app-shot{width:72px;height:90px}.mb-admin__app-status{grid-column:1/-1}.mb-admin__app dl{grid-template-columns:minmax(0,1fr)}}
 
