@@ -3787,6 +3787,15 @@ html.mb-modal-lock {
 .mb-learning-grid p{font-size:.9rem;margin:0}
 .mb-intern-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);gap:clamp(2rem,5vw,5rem);align-items:start}
 .mb-intern-aside{position:sticky;top:110px}
+.mb-intern-form__head{display:flex;justify-content:space-between;align-items:flex-start;gap:1.5rem}
+.mb-intern-posters{flex:none;display:flex;align-items:flex-start;padding:.25rem .5rem 1.25rem 0;margin-top:-.5rem}
+.mb-intern-posters a{display:block;width:96px;border-radius:8px;overflow:hidden;border:4px solid #fff;box-shadow:0 12px 28px #1c140d29;transition:transform .4s var(--mb-ease),box-shadow .4s var(--mb-ease)}
+.mb-intern-posters a:first-child{transform:rotate(-5deg) translateX(10px);z-index:1}
+.mb-intern-posters a:last-child{transform:rotate(5deg) translate(-10px,14px)}
+.mb-intern-posters a:hover,.mb-intern-posters a:focus-visible{transform:rotate(0) scale(1.6);z-index:2;box-shadow:0 20px 44px #1c140d3d}
+.mb-intern-posters img{display:block;width:100%;height:auto}
+@media(max-width:575.98px){.mb-intern-form__head{flex-direction:column-reverse;gap:.5rem}.mb-intern-posters{align-self:center;margin:0}}
+@media(prefers-reduced-motion:reduce){.mb-intern-posters a{transition:none}}
 .mb-intern-aside ol{list-style:none;padding:0;margin:2rem 0;border-top:1px solid #1c140d1a}
 .mb-intern-aside li{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid #1c140d1a;font:500 .85rem var(--mb-sans)}
 .mb-intern-aside li span{color:var(--mb-earth)}
